@@ -1,15 +1,18 @@
 import express from 'express'
-import {json } from 'body-parser'
+import { json } from 'body-parser'
+
+import { currentUserRouter, signInRoute, signOutRoute, signUpRoute } from './routes'
 
 const app = express()
 
 app.use(json())
 
+// add routes
+app.use(currentUserRouter)
+app.use(signInRoute)
+app.use(signOutRoute)
+app.use(signUpRoute)
 
-app.get('/api/users/currentuser', (req, res ) => {
-
-    res.send('response')
-})
 
 app.listen(3000, () => {
 

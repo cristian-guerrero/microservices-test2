@@ -5,4 +5,4 @@ video 98
 para pasar por la pantalla de pagina insegura de crome se escribe thisisunsafe
 thisisunsafe
 
-section 6 is about google cloud
+section 6 is about google cloud b 
