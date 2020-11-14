@@ -6,6 +6,10 @@ const app = express()
 app.use(json())
 
 
+app.get('/api/users/currentuser', (req, res ) => {
+
+    res.send('response')
+})
 
 app.listen(3000, () => {
 

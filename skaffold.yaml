@@ -1,0 +1,20 @@
+apiVersion: skaffold/v2beta9
+kind: Config
+deploy:
+  kubectl:
+    manifests:
+      - ./infra/k8s/*
+build: 
+  tagPolicy:
+    sha256: {}
+  local:
+    push: false
+  artifacts:
+    - image: guerrerocristian/auth
+      context: auth
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: 'src/**/*.ts'
+            dest: /app
