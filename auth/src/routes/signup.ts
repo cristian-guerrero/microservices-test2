@@ -22,7 +22,7 @@ router.post('/api/users/signup',[
 
 
 
-    res.send('User created')
+    res.send('User created...')
 })
 
 export { router as signUpRoute }
