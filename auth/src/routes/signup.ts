@@ -1,12 +1,28 @@
-import {Router} from 'express';
-
+import {Router, Request, Response} from 'express';
+import {body, validationResult} from 'express-validator'
 
 const router = Router()
 
 
-router.post('/api/users/signup', (req, res) => {
+router.post('/api/users/signup',[
+    body('email').isEmail().withMessage('Email must be valid..'),
+    body('password').trim().isLength({min: 4, max:20}).withMessage('Password mus be between 4 and 20 characters')
+], (req: Request, res: Response) => {
 
-    res.send('Response')
+    const errors = validationResult(req)
+
+    const {email, password} = req.body
+
+    if(!errors.isEmpty()) {
+        return res.status(400).send(errors.array())
+    }
+
+
+    
+
+
+
+    res.send('User created')
 })
 
 export { router as signUpRoute }
