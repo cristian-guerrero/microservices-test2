@@ -16,7 +16,7 @@ build:
         dockerfile: Dockerfile
       sync:
         manual:
-          - src: 'src/**/*.ts'
+          - src: '**/*.ts'
             dest: .
       #sync: 
       #  infer:
