@@ -9,7 +9,7 @@ export class RequestValidationError extends CustomError  {
     statusCode = 400
 
     constructor(errors: ValidationError[]) {
-        super()
+        super('Invalid request parameters')
 
         this.errors = errors
 
