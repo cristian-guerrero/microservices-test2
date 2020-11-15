@@ -20,7 +20,8 @@ router.post('/api/users/signup', [
         throw new RequestValidationError(errors.array())
     }
     
-    res.send('User created')
+    throw new DatabaseConnectionError()
+    //res.send('User created')
 
 })
 

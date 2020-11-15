@@ -6,11 +6,17 @@ export const errorHandler = (err: Error, req: Request, res: Response, next: Next
 
 
 
-    if(err instanceof RequestValidationError) {
+    if (err instanceof RequestValidationError) {
         console.log('Handling RequestValidationError')
+
+        return res.status(err.statusCode).send({ errors: err.serializeErrors() })
+
     } else if (err instanceof DatabaseConnectionError) {
         console.log('Handling DatabaseConnectionError ')
+
+        return res.status(err.statusCode).send({ errors: err.serializeErrors() })
     }
 
-    res.status(400).send({message: err.message || 'Somenthing went wrong'})
+
+    res.status(400).send({ message: 'Somenthing went wrong' })
 }
