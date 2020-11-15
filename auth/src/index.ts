@@ -40,6 +40,12 @@ app.use(errorHandler)
 
 const start = async () => {
   const url = 'mongodb://auth-mongo-clusterip-srv:27017/auth'
+
+
+  if(!process.env.JWT_KEY) {
+    throw new Error('process.env.JWT_KEY is not defined')
+  }
+
   try {
     await mongoose.connect(url, {
       useNewUrlParser: true,

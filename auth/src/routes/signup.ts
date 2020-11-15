@@ -7,6 +7,7 @@ import { User } from '../models/user.mode'
 
 const router = Router()
 
+const JWT_KEY = process.env.JWT_KEY!
 
 router.post('/api/users/signup', [
     body('email').isEmail().withMessage('Email must be valid..'),
@@ -35,7 +36,7 @@ router.post('/api/users/signup', [
     const userJwt = jwt.sign({
         id: user.id,
         email: user.email
-    }, '---private key--')
+    }, JWT_KEY)
     // store it on session object
     req.session = {
         jwt: userJwt

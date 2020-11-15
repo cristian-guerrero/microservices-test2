@@ -26,3 +26,6 @@ vualva a hacer la petición
 -- se debe implementar un nuevo evento que los servicios esten escuchando de usuario baneado
 ///
 para utilizar los jwt con SSR se necesita o bien cookies o service worker para el primer render
+
+// 
+kubectl create secret generic jwt-secret --from-literal=JWT_KEY=privatekey

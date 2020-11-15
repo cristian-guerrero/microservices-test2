@@ -30,6 +30,9 @@ interface UserDocInterface extends mongoose.Document {
 
 }
 
+/**
+ * 
+ */
 const userSchema = new mongoose.Schema({
     email: {
         type: String,
@@ -39,6 +42,17 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     }
+}, {
+   toJSON:  {
+
+    transform: function(doc, ret) {
+        delete ret.password 
+        delete ret.__v
+        ret.id = ret._id
+        delete ret._id
+
+    }
+   } 
 })
 
 
