@@ -15,6 +15,7 @@
   },
   "scripts": {
     "dev": "ts-node-dev src/index.ts",
-    "start": "yarn dev"
+    "start": "yarn dev",
+    "development": "yarn dev"
   }
 }

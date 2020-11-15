@@ -4,7 +4,7 @@ deploy:
   kubectl:
     manifests:
       - ./infra/k8s/*
-build: 
+build:
   tagPolicy:
     sha256: {}
   local:
@@ -16,8 +16,8 @@ build:
         dockerfile: Dockerfile
       sync:
         manual:
-          - src: '**/*.ts'
+          - src: "src/**/*.ts"
             dest: .
-      #sync: 
+      #sync:
       #  infer:
-      #    - 'src/**/*.js'
+      #    - '**/*.ts'
