@@ -14,3 +14,15 @@ docker container prune
 docker image rm -f  $(docker images | grep "^<none>" | awk "{print $3}")
 # remove images by user id
 docker image rm -f  $(docker images | grep "^guerreocristian" | awk "{print $3}")
+
+// JWT estrategia con microservicios
+// para el manejo de tokens se puede dejar una duración de 15 minutos y un refresh tokens
+adicionalmente cuando se banee un unsuario que tenga ya un token se debe almacenar en 
+cada uno de los microservicios una lista de usuarios baneados
+esta lista tendra una duración en memoria igual a la duración de el token 
+entonces cuando un usuario este banejado los microservicios lo saben y si el token esta 
+caducado se le pedira al front o al usuario que refresque el token con el tokenRefresh y 
+vualva a hacer la petición
+-- se debe implementar un nuevo evento que los servicios esten escuchando de usuario baneado
+///
+para utilizar los jwt con SSR se necesita o bien cookies o service worker para el primer render
