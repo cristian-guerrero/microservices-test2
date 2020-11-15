@@ -6,3 +6,11 @@ para pasar por la pantalla de pagina insegura de crome se escribe thisisunsafe
 thisisunsafe
 
 section 6 is about google cloud b 
+--- -------------------
+docker image ls 
+#remove all stoped containers
+docker container prune 
+# remove untag images
+docker image rm -f  $(docker images | grep "^<none>" | awk "{print $3}")
+# remove images by user id
+docker image rm -f  $(docker images | grep "^guerreocristian" | awk "{print $3}")
