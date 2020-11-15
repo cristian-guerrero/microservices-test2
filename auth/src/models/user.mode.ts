@@ -1,5 +1,7 @@
 import mongoose from 'mongoose'
 
+import { PasswordService } from '../services/password.service'
+
 /**
  * describe the properties that are required to create new user
  */
@@ -39,11 +41,22 @@ const userSchema = new mongoose.Schema({
     }
 })
 
+
+userSchema.pre('save', async function (done) {
+
+    if(this.isModified('password')) {
+        const hashed = await PasswordService.toHash(this.get('password'))
+        this.set('password', hashed)
+    }
+    done()
+})
+
+
 /**
  * 
  * @param attrs add new function at the schema
  */
-userSchema.statics.build = (attrs: UserAttrsInterface) =>{
+userSchema.statics.build = (attrs: UserAttrsInterface) => {
 
     return new User(attrs)
 }
@@ -51,8 +64,8 @@ userSchema.statics.build = (attrs: UserAttrsInterface) =>{
 /**
  * let typescript to know what we added to statics 
  */
-const User = mongoose.model<UserDocInterface, UserModelInterface> ('User', userSchema)
+const User = mongoose.model<UserDocInterface, UserModelInterface>('User', userSchema)
 
 
 
-export { User  }
+export { User }

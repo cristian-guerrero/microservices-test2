@@ -8,7 +8,7 @@ thisisunsafe
 section 6 is about google cloud b 
 --- -------------------
 docker image ls 
-#remove all stoped containers
+# remove all stoped containers
 docker container prune 
 # remove untag images
 docker image rm -f  $(docker images | grep "^<none>" | awk "{print $3}")
