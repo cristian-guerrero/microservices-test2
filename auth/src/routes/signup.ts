@@ -1,5 +1,6 @@
-import { Router, Request, Response, NextFunction } from 'express';
+import { Router, Request, Response, NextFunction, json } from 'express';
 import { body, validationResult } from 'express-validator'
+import jwt from 'jsonwebtoken'
 
 import { RequestValidationError, BAdRequestError } from '../errors'
 import { User } from '../models/user.mode'
@@ -30,6 +31,15 @@ router.post('/api/users/signup', [
 
     await user.save()
 
+    // generate JWT
+    const userJwt = jwt.sign({
+        id: user.id,
+        email: user.email
+    }, '---private key--')
+    // store it on session object
+    req.session = {
+        jwt: userJwt
+    }
 
     res.status(201).send(user)
 
