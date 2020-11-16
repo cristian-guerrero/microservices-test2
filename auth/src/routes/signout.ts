@@ -6,7 +6,8 @@ const router = Router()
 
 router.post('/api/users/signout', (req, res) => {
 
-    res.send('Response')
+    req.session = null
+    res.send({})
 })
 
 export { router as signOutRoute }
