@@ -14,6 +14,10 @@ docker container prune
 docker image rm -f  $(docker images | grep "^<none>" | awk "{print $3}")
 # remove images by user id
 docker image rm -f  $(docker images | grep "^guerreocristian" | awk "{print $3}")
+ 
+ 
+ docker rmi $(docker images |grep 'guerrerocristian')
+ docker rmi $(docker images |grep '<none>')
 
 // JWT estrategia con microservicios
 // para el manejo de tokens se puede dejar una duración de 15 minutos y un refresh tokens
