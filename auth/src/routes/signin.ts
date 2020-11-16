@@ -22,19 +22,20 @@ router.post('/api/users/signin', [
     const user = await User.findOne({ email })
 
     if (!user) {
-      throw new BAdRequestError('Invalid credentials')
+
+     return  next (new BAdRequestError('Invalid credentials.'))
     }
 
-    const passwordMatch = await PasswordService.compare(existingUser.password, password)
+    const passwordMatch = await PasswordService.compare(user!.password, password)
     
     if (!passwordMatch) {
-      throw new BAdRequestError('Invalid credentials')
+      return next (new BAdRequestError('Invalid credentials'))
     }
 
         // generate JWT
         const userJwt = jwt.sign({
-          id: user.id,
-          email: user.email
+          id: user!.id,
+          email: user!.email
       }, JWT_KEY)
       // store it on session object
       req.session = {
@@ -44,5 +45,7 @@ router.post('/api/users/signin', [
       res.status(201).send(user)
 
   })
+
+
 
 export { router as signInRoute }

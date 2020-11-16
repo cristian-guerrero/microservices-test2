@@ -23,7 +23,7 @@ export class PasswordService {
         const buffer = ( await scryptAsync(suppliedPassword, salt, 64) ) as Buffer
 
 
-        return buffer.toString("hex") === storedPassword
+        return buffer.toString("hex") === hashedPassword
 
     }
 }
