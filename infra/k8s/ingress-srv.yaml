@@ -1,4 +1,4 @@
-apiVersion: networking.k8s.io/v1
+apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
     name: ingress-service
@@ -13,7 +13,6 @@ spec:
           - path: /api/users/?(.*)
             pathType: Prefix
             backend:
-              service:
-                  name: auth-clusterip-srv
-                  port:
-                    number: 3000
+              serviceName: auth-clusterip-srv
+              servicePort: 3000
+            
