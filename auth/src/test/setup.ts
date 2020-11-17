@@ -5,6 +5,7 @@ import app from '../app'
 let mongo: any
 
 beforeAll(async() => {
+  process.env.JWT_KEY = 'A_KEY'
 
    mongo = new MongoMemoryServer()
 
