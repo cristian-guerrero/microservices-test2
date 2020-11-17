@@ -4,8 +4,12 @@ import app from '../app'
 
 let mongo: any
 
+process.env = Object.assign(process.env, {
+  JWT_KEY : 'A_KEY'
+});
+
 beforeAll(async() => {
-  process.env.JWT_KEY = 'A_KEY'
+  // process.env.JWT_KEY = 'A_KEY'
 
    mongo = new MongoMemoryServer()
 
