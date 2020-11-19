@@ -12,7 +12,7 @@ const JWT_KEY = process.env.JWT_KEY!
  * 
  */
 router.get('/api/users/currentuser',
-  currentUser, requireAuth, (req, res) => {
+  currentUser, (req, res) => {
 
     return res.send({ currentUser: req.currentUser || null })
 
