@@ -1,6 +1,31 @@
+
 import { MongoMemoryServer } from 'mongodb-memory-server'
 import mongoose from 'mongoose'
-import app from '../app'
+
+
+
+/*
+declare global  {
+  namespace NodeJs {
+    interface Global {
+      signup(): Promise<string[]>
+    }
+  }
+}
+*/
+/*
+declare module NodeJs {
+  interface Global {
+    signup(): Promise<string[]>
+  }
+}
+
+*/
+/*
+declare global  {
+  function signup(): Promise<string[]>
+}
+*/
 
 let mongo: any
 
@@ -38,5 +63,8 @@ afterAll(async () => {
 
   await mongoose.connection.close()
 
-
 })
+
+/*
+
+*/
