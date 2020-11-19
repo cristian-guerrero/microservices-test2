@@ -1,17 +1,18 @@
-import { MongoMemoryServer} from 'mongodb-memory-server'
+import { MongoMemoryServer } from 'mongodb-memory-server'
 import mongoose from 'mongoose'
 import app from '../app'
 
 let mongo: any
 
 process.env = Object.assign(process.env, {
-  JWT_KEY : 'A_KEY'
+  JWT_KEY: 'A_KEY',
+  NODE_ENV: 'test'
 });
 
-beforeAll(async() => {
+beforeAll(async () => {
   // process.env.JWT_KEY = 'A_KEY'
 
-   mongo = new MongoMemoryServer()
+  mongo = new MongoMemoryServer()
 
   const mongoUri = await mongo.getUri()
 
@@ -22,11 +23,11 @@ beforeAll(async() => {
 
 })
 
-beforeEach(async () =>{
+beforeEach(async () => {
 
   const collections = await mongoose.connection.db.collections()
 
-  for(const collection of collections) {
+  for (const collection of collections) {
     await collection.deleteMany({})
   }
 })
