@@ -21,3 +21,12 @@ build:
       #sync:
       #  infer:
       #    - '**/*.ts'
+    - image: guerrerocristian/client
+      context: client
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "**/*.js"
+            dest: .
+    

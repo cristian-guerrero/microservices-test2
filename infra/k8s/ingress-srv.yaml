@@ -15,4 +15,12 @@ spec:
             backend:
               serviceName: auth-clusterip-srv
               servicePort: 3000
+    - host:
+      http: 
+        paths:
+          - path: /?(.*)
+            pathType: Prefix
+            backend:
+              serviceName: client-clusterip-srv
+              servicePort: 3000
             
