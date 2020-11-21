@@ -4,7 +4,7 @@ import { useState } from 'react'
 
 
 
-export default ({ url, method, body, onSuccess }) => {
+const useRequest = ({ url, method, body, onSuccess }) => {
 
   const [errors, setErrors] = useState(null)
 
@@ -35,3 +35,5 @@ export default ({ url, method, body, onSuccess }) => {
   return { doRequest, errors }
 
 }
+
+export default useRequest

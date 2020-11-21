@@ -8,6 +8,8 @@
   },
   "scripts": {
     "dev": "next",
-    "start": "yarn dev"
+    "build": "next build",
+    "start": "next start",
+    "build:static": "next build && next export"
   }
 }
