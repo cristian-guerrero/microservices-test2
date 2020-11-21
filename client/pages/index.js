@@ -13,7 +13,7 @@ const Index = ({currentUser}) => {
 
 Index.getInitialProps = async  () => {
 
-  const response = await axios.get('/api/users/currentuser')
+  const response = await axios.get('htpps://ingress-nginx/api/users/currentuser')
   console.log('on the server!')
 
   return response.data
