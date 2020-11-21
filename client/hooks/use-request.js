@@ -4,7 +4,7 @@ import { useState } from 'react'
 
 
 
-export default ({ url, method, body }) => {
+export default ({ url, method, body, onSuccess }) => {
 
   const [errors, setErrors] = useState(null)
 
@@ -13,6 +13,10 @@ export default ({ url, method, body }) => {
     try {
       const response = await axios[method](url, body)
 
+
+      if(onSuccess) {
+        onSuccess(response.data)
+      }
 
       return response.data
     } catch (err) {
