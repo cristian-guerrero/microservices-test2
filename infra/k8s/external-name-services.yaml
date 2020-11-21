@@ -5,3 +5,4 @@ metadata:
 spec:
  type: ExternalName
  externalName: ingress-nginx-controller.ingress-nginx.svc.cluster.local
+ # formato = service_name.namespace.svc.cluester.local

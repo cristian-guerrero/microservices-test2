@@ -7,20 +7,17 @@ metadata:
       nginx.ingress.kubernetes.io/use-regex: 'true'
 spec:
   rules:
-    - host:
+    - host: ticketing.dev
       http: 
         paths:
           - path: /api/users/?(.*)
             pathType: Prefix
             backend:
               serviceName: auth-clusterip-srv
-              servicePort: 3000
-    - host:
-      http: 
-        paths:
+              servicePort: 3001
           - path: /?(.*)
             pathType: Prefix
             backend:
               serviceName: client-clusterip-srv
               servicePort: 3000
-            
+          
