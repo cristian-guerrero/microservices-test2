@@ -1,8 +1,8 @@
 import { Router } from 'express';
 
-import jwt from 'jsonwebtoken'
-import { currentUser } from '../middlewares/current-user.middleware';
-import { requireAuth } from '../middlewares/require-auth.middleware';
+
+import { currentUser } from '@microservices-commons/common';
+
 
 const router = Router()
 

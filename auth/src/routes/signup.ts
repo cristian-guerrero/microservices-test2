@@ -1,10 +1,9 @@
 import { Router, Request, Response, NextFunction, json } from 'express';
-import { body, validationResult } from 'express-validator'
+import { body } from 'express-validator'
 import jwt from 'jsonwebtoken'
 
-import { RequestValidationError, BAdRequestError } from '../errors'
+import { validateRequest, BAdRequestError } from '@microservices-commons/common/build'
 import { User } from '../models/user.mode'
-import { validateRequest } from '../middlewares/validate-request.middleware';
 
 const router = Router()
 

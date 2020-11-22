@@ -1,7 +1,6 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import { body } from 'express-validator';
-import { BAdRequestError } from '../errors';
-import { validateRequest } from '../middlewares/validate-request.middleware';
+import { BAdRequestError, validateRequest } from '@microservices-commons/common';
 import { User } from '../models/user.mode';
 import { PasswordService } from '../services/password.service';
 import jwt from 'jsonwebtoken'
