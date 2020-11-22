@@ -21,6 +21,11 @@ spec:
                 secretKeyRef:
                   name: env-secret
                   key: JWT_KEY
+            - name: URL_DB_AUTH
+              valueFrom:
+                secretKeyRef:
+                  name: env-secret
+                  key: URL_DB_AUTH
 ---
 apiVersion: v1
 kind: Service
