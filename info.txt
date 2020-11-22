@@ -44,4 +44,6 @@ a través del ingress-nginx de la siguiente  forma:
 // http://ingress-nginx-controller.ingress-nginx.svc.cluster.local/api/users/currentuser
 
 // --------------- publish npm repository -----------------
+npm adduser
+npm publish --access public 
 
