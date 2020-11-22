@@ -1,6 +1,6 @@
 {
   "name": "@microservices-commons/common",
-  "version": "1.0.1",
+  "version": "1.0.8",
   "main": "./build/index.js",
   "types":"./build/index.ts",
   "files": [
@@ -16,6 +16,7 @@
     "typescript": "^4.1.2"
   },"scripts": {
     "build": "yarn clean  && tsc",
-    "clean": "del ./build/*"
+    "clean": "del ./build/*",
+    "pub":"git add . && git commit -m \"Updates..\" && npm version patch && npm run build && npm publish"
   }
 }
