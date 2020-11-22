@@ -5,14 +5,16 @@ import app from './app'
 
 
 const start = async () => {
+
   if(!process.env.JWT_KEY) {
     throw new Error('process.env.JWT_KEY is not defined')
   }
-  if(!process.env.URL_DB_AUTH) {
-    throw new Error('process.env.URL_DB_AUTH is not defined')
+  if(!process.env.URL_DB_TICKETS) {
+    throw new Error('process.env.URL_DB_TICKETS is not defined')
   }
 
-  const url = process.env.URL_DB_AUTH
+  const url = process.env.URL_DB_TICKETS
+
 
   try {
     await mongoose.connect(url, {
@@ -21,11 +23,11 @@ const start = async () => {
       useCreateIndex: true
     })
 
-    console.log('connected to: ', url)
+    console.log('connected to database in: ', url)
 
     app.listen(3000, () => {
 
-      console.log('Auth server listening on localhost:3000')
+      console.log('Tickets server listening on localhost:3000')
     })
 
   } catch (err) {
