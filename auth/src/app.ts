@@ -1,11 +1,9 @@
 import express from 'express'
 import { json } from 'body-parser'
-import mongoose from 'mongoose'
 import cookieSession from 'cookie-session'
 
 import { currentUserRouter, signInRoute, signOutRoute, signUpRoute } from './routes'
-import { NotFoundError } from './errors/not-found.error';
-import { errorHandler } from './middlewares/error-handler'
+import { NotFoundError, errorHandler } from '@microservices-commons/common'
 
 
 const app = express()
