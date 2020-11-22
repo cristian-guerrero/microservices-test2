@@ -1,8 +1,8 @@
 {
   "name": "@microservices-commons/common",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "main": "./build/index.js",
-  "types":"./build/index.ts",
+  "types": "./build/index.ts",
   "files": [
     "build/**/*"
   ],
@@ -14,9 +14,10 @@
   "devDependencies": {
     "del-cli": "^3.0.1",
     "typescript": "^4.1.2"
-  },"scripts": {
+  },
+  "scripts": {
     "build": "yarn clean  && tsc",
     "clean": "del ./build/*",
-    "pub":"git add . && git commit -m \"Updates..\" && npm version patch && npm run build && npm publish"
+    "pub": "git add . && git commit -m \"Updates..\" && npm version patch && npm run build && npm publish"
   }
 }
