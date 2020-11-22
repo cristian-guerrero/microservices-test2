@@ -2,15 +2,17 @@ import 'bootstrap/dist/css/bootstrap.css'
 
 import buildClient from '../api/build-client'
 
+import Header from '../components/header'
 
-const AppComponent = ({ Component, pageProps , currentUser}) => {
+
+const AppComponent = ({ Component, pageProps, currentUser }) => {
 
   console.log(currentUser)
 
   return <div>
-    <h1>User: {currentUser.email}</h1>
-<Component {...pageProps} />
-  </div> 
+    <Header currentUser={currentUser} />
+    <Component {...pageProps} />
+  </div>
 }
 
 
@@ -20,9 +22,9 @@ AppComponent.getInitialProps = async (appContext) => {
   const { data } = await client.get('/api/users/currentuser')
 
   let pageProps = {}
-  if(appContext.Component.getInitialProps) {
+  if (appContext.Component.getInitialProps) {
     // ejecutar manualmente getInitialProps de los componentes
-     pageProps = await appContext.Component.getInitialProps(appContext.ctx) 
+    pageProps = await appContext.Component.getInitialProps(appContext.ctx)
   }
 
 
