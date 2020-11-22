@@ -1,8 +1,8 @@
 {
   "name": "@microservices-commons/common",
-  "version": "1.0.25",
+  "version": "1.0.26",
   "main": "./build/index",
-  "types": "./build/index.ts",
+  "types": "./build/index.d.ts",
   "files": [
     "build/**/*"
   ],
