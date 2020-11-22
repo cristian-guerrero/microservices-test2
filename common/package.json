@@ -1,6 +1,6 @@
 {
   "name": "@microservices-commons/common",
-  "version": "1.0.17",
+  "version": "1.0.18",
   "main": "./build/index.js",
   "types": "./build/index.ts",
   "files": [
@@ -12,7 +12,9 @@
   "description": "",
   "dependencies": {
     "@types/express": "^4.17.9",
-    "express": "^4.17.1"
+    "@types/express-validator": "^3.0.0",
+    "express": "^4.17.1",
+    "express-validator": "^6.6.1"
   },
   "devDependencies": {
     "del-cli": "^3.0.1",
