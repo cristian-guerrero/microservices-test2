@@ -1,8 +1,21 @@
 {
   "name": "@microservices-commons/common",
-  "version": "1.0.0",
-  "main": "index.js",
+  "version": "1.0.1",
+  "main": "./build/index.js",
+  "types":"./build/index.ts",
+  "files": [
+    "build/**/*"
+  ],
   "license": "MIT",
   "author": "Cristian Guerrero",
-  "keywords": []
+  "keywords": [],
+  "description": "",
+  "dependencies": {},
+  "devDependencies": {
+    "del-cli": "^3.0.1",
+    "typescript": "^4.1.2"
+  },"scripts": {
+    "build": "yarn clean  && tsc",
+    "clean": "del ./build/*"
+  }
 }
