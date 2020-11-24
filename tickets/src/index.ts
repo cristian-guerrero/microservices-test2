@@ -4,17 +4,23 @@ import mongoose from 'mongoose'
 import app from './app'
 
 
-const start = async () => {
+const checkEnvironmet = () => {
 
-  if(!process.env.JWT_KEY) {
+  if (!process.env.JWT_KEY) {
     throw new Error('process.env.JWT_KEY is not defined')
   }
-  if(!process.env.URL_DB_TICKETS) {
+  if (!process.env.URL_DB_TICKETS) {
     throw new Error('process.env.URL_DB_TICKETS is not defined')
   }
+}
 
-  const url = process.env.URL_DB_TICKETS
 
+const start = async () => {
+
+  checkEnvironmet()
+
+
+  const url = process.env.URL_DB_TICKETS!
 
   try {
     await mongoose.connect(url, {
