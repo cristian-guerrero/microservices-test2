@@ -1,6 +1,7 @@
 import { requireAuth, validateRequest } from '@microservices-commons/common';
 import { Request, Response, Router } from 'express';
 import { body } from 'express-validator';
+import { Ticket } from '../models/tickets';
 
 
 
@@ -16,10 +17,21 @@ requireAuth,
 
 ],
 validateRequest,
-(req:Request, res: Response) => {
+async (req:Request, res: Response) => {
+
+  const {title, price} = req.body 
+
+  const newTicket = Ticket.build({
+    title, 
+    price,
+    userId: req.currentUser!.id
+
+  })
+
+  const response = await newTicket.save()
 
 
-  res.sendStatus(200)
+  res.status(201).send(response)
 })
 
 export {router as createTicketsRouter}
