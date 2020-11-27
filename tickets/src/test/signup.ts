@@ -2,13 +2,14 @@ import request from 'supertest';
 import app from '../app'
 
 import jwt from 'jsonwebtoken'
+import mongoose from 'mongoose';
 
 
 const signinTest =  () => {
 
 
   const payload = {
-    id: '3kfig54fd',
+    id: new mongoose.Types.ObjectId().toHexString(),
     email: 'test@test.com'
   }
 
