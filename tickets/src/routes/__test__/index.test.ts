@@ -25,7 +25,7 @@ it('can fech a list of tickets', async () => {
 
 
   const response = await request(app)
-  .get('/app/tickets')
+  .get('/api/tickets')
   .send()
   .expect(200)
 

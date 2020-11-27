@@ -8,6 +8,7 @@ import { NotFoundError, errorHandler, currentUser } from '@microservices-commons
 import { createTicketsRouter } from './routes/new'
 import { showTicketRouter } from './routes/show'
 import { indexTicketRouter } from './routes'
+import { updateTicketRouter } from './routes/update'
 
 
 
@@ -36,6 +37,7 @@ app.use((req, res, next) => {
 app.use(createTicketsRouter)
 app.use(showTicketRouter)
 app.use(indexTicketRouter)
+app.use(updateTicketRouter)
 
 
 app.all('*', async (req, res, next) => {
