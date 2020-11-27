@@ -6,6 +6,8 @@ import cookieSession from 'cookie-session'
 
 import { NotFoundError, errorHandler, currentUser } from '@microservices-commons/common'
 import { createTicketsRouter } from './routes/new'
+import { showTicketRouter } from './routes/show'
+import { indexTicketRouter } from './routes'
 
 
 
@@ -23,6 +25,7 @@ app.use(cookieSession({
 
 app.use(currentUser)
 
+
 app.use((req, res, next) => {
   next()
   console.log('request to: ', req.url)
@@ -31,7 +34,8 @@ app.use((req, res, next) => {
 
 // add routes
 app.use(createTicketsRouter)
-
+app.use(showTicketRouter)
+app.use(indexTicketRouter)
 
 
 app.all('*', async (req, res, next) => {
