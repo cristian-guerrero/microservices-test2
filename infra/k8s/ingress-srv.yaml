@@ -15,6 +15,11 @@ spec:
             backend:
               serviceName: auth-clusterip-srv
               servicePort: 3001
+          - path: /api/tickets/?(.*)
+            pathType: Prefix
+            backend:
+              serviceName: tickets-clusterip-srv
+              servicePort: 3002
           - path: /?(.*)
             pathType: Prefix
             backend:
