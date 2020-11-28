@@ -46,4 +46,7 @@ a través del ingress-nginx de la siguiente  forma:
 // --------------- publish npm repository -----------------
 npm adduser
 npm publish --access public 
+// --------------------------------------------------
+# port forwarding
+kubectl port-forward pod-name  4222:4222 (localmachine-port:pod-port)
 
