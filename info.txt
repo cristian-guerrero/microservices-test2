@@ -50,3 +50,10 @@ npm publish --access public
 # port forwarding
 kubectl port-forward pod-name  4222:4222 (localmachine-port:pod-port)
 # example -> kubectl port-forward nats-depl-f5f99b64d-cp4cv 4222:4222
+
+// monitorear el estado del servidor nats
+ kubectl port-forward nats-depl-f5f99b64d-cp4cv 8222:8222
+localhost:8222/streaming
+localhost:8222/streaming/channelsz?subs=1
+
+IMPORTANT !! VIDEO 275 (CORE CONCURRENCY ISSUES)
