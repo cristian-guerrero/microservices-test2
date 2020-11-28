@@ -49,4 +49,4 @@ npm publish --access public
 // --------------------------------------------------
 # port forwarding
 kubectl port-forward pod-name  4222:4222 (localmachine-port:pod-port)
-
+# example -> kubectl port-forward nats-depl-f5f99b64d-cp4cv 4222:4222
