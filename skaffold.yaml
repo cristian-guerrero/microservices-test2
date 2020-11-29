@@ -37,4 +37,12 @@ build:
         manual:
           - src: "src/**/*.ts"
             dest: .
+    #- image: guerrerocristian/tickets
+    #  context: .
+    #  docker:
+    #    dockerfile: ./tickets/Dockerfile
+    #  sync:
+    #    manual:
+    #      - src: "tickets/src/**/*.ts"
+    #        dest: ./tickets
     

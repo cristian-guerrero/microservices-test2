@@ -1,11 +1,18 @@
 {
   "private": true,
   "license": "MIT",
-  "workspaces": ["auth", "client", "common", "nats-test", "tickets"],
+  "workspaces": [
+    "auth",
+    "client",
+    "common",
+    "nats-test",
+    "tickets"
+  ],
   "scripts": {
-    "start:tickets" :"ts-node-dev --watch tickets/src, tickets/src/index.ts"
+    "start:tickets": "ts-node-dev --watch tickets/src, tickets/src/index.ts"
   },
   "dependencies": {
+    "@microservices-commons/common": "^1.0.30",
     "ts-node-dev": "^1.0.0"
   }
 }
