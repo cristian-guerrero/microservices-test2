@@ -1,7 +1,8 @@
 import { requireAuth, validateRequest } from '@microservices-commons/common';
-import { Request, Response, Router } from 'express';
+import { Request, Response, Router, response } from 'express';
 import { body } from 'express-validator';
 import { Ticket } from '../models/tickets';
+import { TicketcreatedPublisher } from '../events/publishers/ticket-create-publisher';
 
 
 
@@ -28,10 +29,17 @@ async (req:Request, res: Response) => {
 
   })
 
-  const response = await newTicket.save()
+   await newTicket.save()
+
+  new TicketcreatedPublisher(client).publish({
+    id: newTicket.id,
+    title: newTicket.title,
+    price: newTicket.price,
+    userId: newTicket.userId
+  })
 
 
-  res.status(201).send(response)
+  res.status(201).send(newTicket)
 })
 
 export {router as createTicketsRouter}
