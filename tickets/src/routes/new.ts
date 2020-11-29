@@ -3,6 +3,7 @@ import { Request, Response, Router, response } from 'express';
 import { body } from 'express-validator';
 import { Ticket } from '../models/tickets';
 import { TicketcreatedPublisher } from '../events/publishers/ticket-create-publisher';
+import { nastWrapper } from '../nats-wrapper';
 
 
 
@@ -31,7 +32,8 @@ async (req:Request, res: Response) => {
 
    await newTicket.save()
 
-  new TicketcreatedPublisher(client).publish({
+   
+  new TicketcreatedPublisher(nastWrapper.client).publish({
     id: newTicket.id,
     title: newTicket.title,
     price: newTicket.price,

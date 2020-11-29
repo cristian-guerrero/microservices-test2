@@ -3,6 +3,8 @@ import { requireAuth, NotFoundError, NotAuthorizeError } from '@microservices-co
 import { Ticket } from '../models/tickets';
 import { validateRequest } from '@microservices-commons/common/build';
 import { body } from 'express-validator';
+import { nastWrapper } from '../nats-wrapper';
+import { TicketUpdatedPublisher } from '../events/publishers/ticket-update-publisher';
 
 const router = Router()
 
@@ -35,6 +37,13 @@ router.put('/api/tickets/:id',
 
     await ticket.save()
 
+
+  new TicketUpdatedPublisher(nastWrapper.client).publish({
+    id: ticket.id,
+    title: ticket.title,
+    price: ticket.price,
+    userId: ticket.userId
+  })
 
     res.send(ticket)
   })

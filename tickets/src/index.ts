@@ -2,6 +2,7 @@ import mongoose from 'mongoose'
 
 
 import app from './app'
+import { nastWrapper } from './nats-wrapper';
 
 
 const checkEnvironmet = () => {
@@ -23,13 +24,26 @@ const start = async () => {
   const url = process.env.URL_DB_TICKETS!
 
   try {
+
+    await nastWrapper.connect('ticketing',
+      'randonvalue', 'http://nats-clusterip-srv:4222')
+
+      nastWrapper.client.on('close', () => {
+        console.log('NATS connection closed!')
+        process.exit()
+      })
+
+      process.on('SIGINT', () => nastWrapper.client.close())
+      process.on('SIGTERM', () => nastWrapper.client.close())
+
+
     await mongoose.connect(url, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useCreateIndex: true
     })
 
-    console.log('connected to database in: ', url)
+    console.log('Connected to database in: ', url)
 
     app.listen(3000, () => {
 
