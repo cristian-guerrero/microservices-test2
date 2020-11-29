@@ -1,11 +1,21 @@
 From node:lts-alpine
 
-WORKDIR /app
+#WORKDIR /usr/src/app
+#COPY package.json .
+#COPY yarn.lock .
+#COPY  common/ ./common
+#copy tickets/ ./tickets
+#qRUN yarn install --production=true
+
+
+
 
 COPY package.json .
 RUN yarn install --production=true
 COPY . .
-# EXPOSE 4000
-CMD ["yarn", "start"]
+CMD ["yarn", "start:tickets"]
 
  # docker build -t guerrerocristian/tickets .
+
+# construir desde la carpeta raiz
+ # docker build -t  ticketscontainer -f tickets/Dockerfile .
