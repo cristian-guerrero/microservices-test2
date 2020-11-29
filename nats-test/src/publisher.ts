@@ -17,7 +17,7 @@ stan.on('connect', () => {
   })
 
 
-  stan.publish('tickets:created', data ,(err, guid) => {
+  stan.publish('ticket:created', data ,(err, guid) => {
 
     console.log('Event published', guid)
 

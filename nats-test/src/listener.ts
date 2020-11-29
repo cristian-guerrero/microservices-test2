@@ -1,6 +1,7 @@
-import nats, { Message } from 'node-nats-streaming';
+import nats, { Message, Stan } from 'node-nats-streaming';
 
 import { randomBytes } from 'crypto'
+
 
 console.clear()
 
@@ -11,6 +12,20 @@ const stan = nats.connect('ticketing', id, {
 })
 
 
+stan.on('connect', () => {
+
+  console.log('listener connected to NATS')
+
+  stan.on('close', () => {
+    console.log('NATS connection closed!')
+    process.exit()
+  })
+
+  new TicketCreatedListener(stan).listen()
+})
+
+
+/*
 stan.on('connect', () => {
 
   console.log('listener connected to NATS')
@@ -31,12 +46,11 @@ stan.on('connect', () => {
     // SetDurableName solo funciona si se tiene un queue group (durable suscriptions)
     .setDurableName('accounting-service')
 
-  /**
-   * el primer argumento de la suscription es el canal al que se quiere suscribir
-   * el segundo argumento es el queue group para que no se envien los mensajes a todos los 
-   * microserivcios distribuidos del mismo tipo y se valancee la carga
-   */
-  const subscription = stan.subscribe('tickets:created', 'orders-service-queue-group', options)
+
+  //* el primer argumento de la suscription es el canal al que se quiere suscribir
+  //* el segundo argumento es el queue group para que no se envien los mensajes a todos los 
+  //* microserivcios distribuidos del mismo tipo y se valancee la carga
+  const subscription = stan.subscribe('ticket:created', 'orders-service-queue-group', options)
 
   subscription.on('message', (msg: Message) => {
 
@@ -53,6 +67,7 @@ stan.on('connect', () => {
 
   })
 })
+*/
 
 /**
  * interupted signal 
@@ -62,3 +77,72 @@ process.on('SIGINT', () => stan.close())
  * terminated signal
  */
 process.on('SIGTERM', () => stan.close())
+
+
+
+
+abstract class Listener {
+
+  abstract subject: string
+  abstract queueGrouName: string
+
+  abstract onMessage(parsedData: string, msg: Message): void
+
+  private client: Stan
+  private ackWait = 5 * 1000
+
+
+  constructor(client: Stan) {
+    this.client = client
+  }
+
+  subscriptionOptions() {
+    return this.client.subscriptionOptions()
+      .setDeliverAllAvailable()
+      .setManualAckMode(true)
+      .setAckWait(this.ackWait)
+      .setDurableName(this.queueGrouName)
+  }
+
+  listen() {
+    const suscription = this.client.subscribe(
+      this.subject,
+      this.queueGrouName,
+      this.subscriptionOptions()
+    )
+
+    suscription.on('message', (msg: Message) => {
+      console.log(`Message received: ${this.subject} / ${this.queueGrouName}`)
+
+      const parsedData = this.parseMessage(msg)
+
+      this.onMessage(parsedData, msg)
+    })
+  }
+
+
+  parseMessage(msg: Message) {
+
+    const data = msg.getData()
+
+    return typeof data === 'string' ?
+      JSON.parse(data.toString()) :
+      JSON.parse(data.toString('utf8'))
+  }
+
+}
+
+
+class TicketCreatedListener extends Listener {
+
+  subject = 'ticket:created'
+  queueGrouName = 'payments-service'
+
+  onMessage(parsedData: string, msg: Message): void {
+
+    console.log('Event data!', parsedData)
+
+    msg.ack()
+  }
+
+}

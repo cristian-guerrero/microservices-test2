@@ -1,0 +1,5 @@
+{
+  "private": true,
+  "license": "MIT",
+  "workspaces": ["auth", "client", "common", "nats-test", "tickets"]
+}
