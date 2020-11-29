@@ -15,14 +15,21 @@ stan.on('connect', () => {
 
   console.log('listener connected to NATS')
 
-  stan.on('close', ( ) => {
+  stan.on('close', () => {
     console.log('NATS connection closed!')
     process.exit()
   })
 
   const options = stan.subscriptionOptions()
-  // manualmente devolver el acuse de recibo
-  .setManualAckMode(true)
+    // manualmente devolver el acuse de recibo
+    .setManualAckMode(true)
+    // vuelve y envía todos los mensajes que se hayan enviado ya
+    .setDeliverAllAvailable()
+    // (durable suscriptions)
+    // crea una lista donde se guardaran los mensajes que no tengan acuse de recibo para volverlos a enviar cuando 
+    // el servicio listener se vuelva a iniciar o se inice una nueva instancia
+    // SetDurableName solo funciona si se tiene un queue group (durable suscriptions)
+    .setDurableName('accounting-service')
 
   /**
    * el primer argumento de la suscription es el canal al que se quiere suscribir
