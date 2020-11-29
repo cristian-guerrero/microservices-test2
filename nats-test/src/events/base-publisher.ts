@@ -1,3 +1,4 @@
+import { rejects } from 'assert';
 import { Stan } from 'node-nats-streaming';
 import { Subjects } from './subjects';
 
@@ -17,11 +18,22 @@ export abstract class Publisher<T extends Event> {
   }
 
 
-  publish(data: T['data']) {
-    this.client.publish(this.subject, data, () => {
+  publish(data: T['data']): Promise<void> {
 
-      console.log('Event published')
+    return new Promise((resolve, reject) => {
+      this.client.publish(this.subject, JSON.stringify(data), (err) => {
+
+        if (err) {
+          reject(err)
+        }
+
+        resolve()
+        console.log('Event published to subject', this.subject)
+
+      })
 
     })
+
+
   }
 }
