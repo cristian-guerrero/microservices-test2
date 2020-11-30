@@ -1,5 +1,5 @@
 
-
+/*
 export const natsWrapper = {
 
    client: {
@@ -7,4 +7,15 @@ export const natsWrapper = {
        callback()
      }
    }
+}
+*/
+export const natsWrapper = {
+
+  client: {
+    publish : jest.fn().mockImplementation(
+      (subject: string, data: string, callback: () => void) => {
+
+        callback()
+    })
+  }
 }
