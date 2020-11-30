@@ -34,6 +34,9 @@ process.env = Object.assign(process.env, {
   NODE_ENV: 'test'
 });
 
+// mockup
+jest.mock('../nats-wrapper')
+
 beforeAll(async () => {
   // process.env.JWT_KEY = 'A_KEY'
 

@@ -1,9 +1,9 @@
 import { requireAuth, validateRequest } from '@microservices-commons/common';
-import { Request, Response, Router, response } from 'express';
+import { Request, Response, Router } from 'express';
 import { body } from 'express-validator';
 import { Ticket } from '../models/tickets';
 import { TicketcreatedPublisher } from '../events/publishers/ticket-create-publisher';
-import { nastWrapper } from '../nats-wrapper';
+import { natsWrapper } from '../nats-wrapper';
 
 
 
@@ -33,7 +33,7 @@ async (req:Request, res: Response) => {
    await newTicket.save()
 
    
-  new TicketcreatedPublisher(nastWrapper.client).publish({
+  new TicketcreatedPublisher(natsWrapper.client).publish({
     id: newTicket.id,
     title: newTicket.title,
     price: newTicket.price,

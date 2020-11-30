@@ -4,7 +4,6 @@ import { Ticket } from '../../models/tickets';
 import { signinTest } from '../../test/signup';
 
 
-
 it('has a route handler listening to /api/tickers for post request', async () => {
 
   const response = await request(app)
