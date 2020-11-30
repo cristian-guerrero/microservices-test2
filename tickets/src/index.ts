@@ -2,7 +2,7 @@ import mongoose from 'mongoose'
 
 
 import app from './app'
-import { nastWrapper } from './nats-wrapper';
+import { natsWrapper } from './nats-wrapper';
 
 
 const checkEnvironmet = () => {
@@ -13,6 +13,16 @@ const checkEnvironmet = () => {
   if (!process.env.URL_DB_TICKETS) {
     throw new Error('process.env.URL_DB_TICKETS is not defined')
   }
+  if (!process.env.NATS_URL) {
+    throw new Error('process.env.NATS_URL is not defined')
+  }
+  if (!process.env.NATS_CLUSTER_ID) {
+    throw new Error('process.env.NATS_CLUSTER_ID is not defined')
+  }
+  if (!process.env.NATS_CLIENT_ID) {
+    throw new Error('process.env.NATS_CLIENT_ID is not defined')
+  }
+
 }
 
 
@@ -25,16 +35,24 @@ const start = async () => {
 
   try {
 
-    await nastWrapper.connect('ticketing',
-      'randonvalue', 'http://nats-clusterip-srv:4222')
+    // console.log('Pod id ->' +process.env.NATS_CLIENT_ID )
+    // console.log('culster id ->' +process.env.NATS_CLUSTER_ID )
+    // console.log('url id ->' +process.env.NATS_URL )
 
-      nastWrapper.client.on('close', () => {
-        console.log('NATS connection closed!')
-        process.exit()
-      })
+    await natsWrapper.connect(
+      //'ticketing',
+      process.env.NATS_CLUSTER_ID!,
+      process.env.NATS_CLIENT_ID!,
+      process.env.NATS_URL!
+    )
 
-      process.on('SIGINT', () => nastWrapper.client.close())
-      process.on('SIGTERM', () => nastWrapper.client.close())
+    natsWrapper.client.on('close', () => {
+      console.log('NATS connection closed!')
+      process.exit()
+    })
+
+    process.on('SIGINT', () => natsWrapper.client.close())
+    process.on('SIGTERM', () => natsWrapper.client.close())
 
 
     await mongoose.connect(url, {
@@ -46,6 +64,7 @@ const start = async () => {
     console.log('Connected to database in: ', url)
 
     app.listen(3000, () => {
+
 
       console.log('Tickets server listening on localhost:3000')
     })

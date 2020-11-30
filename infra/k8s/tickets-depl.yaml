@@ -26,6 +26,23 @@ spec:
                 secretKeyRef:
                   name: env-secret
                   key: URL_DB_TICKETS
+            - name: NATS_URL
+              valueFrom:
+                secretKeyRef:
+                  name: env-secret
+                  key: NATS_URL
+            #- name: NATS_CLUSTER_ID
+            #  valueFrom:
+            #    secretKeyRef:
+            #      name: env-secret
+            #      key: NATS_CLUSTER_ID
+            - name: NATS_CLUSTER_ID
+              value: ticketing
+            - name: NATS_CLIENT_ID
+              valueFrom:
+                fieldRef: 
+                  fieldPath: metadata.name
+
 ---
 apiVersion: v1
 kind: Service
