@@ -2,6 +2,7 @@ import request from 'supertest';
 import app from '../../app';
 import mongoose from 'mongoose';
 import { signinTest } from '../../test/signup';
+import { natsWrapper } from '../../nats-wrapper';
 
 
 
@@ -112,5 +113,32 @@ it('updates the ticket provided valid inputs' ,  async () => {
   expect(ticketResponse.body.title ).toEqual('other title')
   expect(ticketResponse.body.price ).toEqual(100)
 
+
+})
+
+
+
+it('publishes an event ', async () => {
+
+  const cookie = signinTest();
+  const response = await request (app)
+  .post('/api/tickets/' )
+  .set('Cookie', cookie)
+  .send ({
+    title: 'a new title ...',
+    price: 40
+  })
+
+  await request (app)
+  .put('/api/tickets/' +  response.body.id)
+  .set('Cookie',cookie)
+  .send ({
+    title: 'other title',
+    price: 100
+  }).expect(200)
+
+    // console.log(natsWrapper)
+
+    expect(natsWrapper.client.publish).toHaveBeenCalled()
 
 })
