@@ -11,7 +11,7 @@ const router = express.Router()
 router.get('/api/tickets/:id', async (req: Request, res: Response, next: NextFunction) => {
 
 
-  const ticket = await Ticket.findById(req.params.id)
+  const ticket = await Ticket.findOne({_id: req.params.id})
 
 
   if(!ticket) {

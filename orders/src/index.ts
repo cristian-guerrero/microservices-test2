@@ -1,4 +1,4 @@
-import {connect} from 'mongoose'
+import mongoose from 'mongoose'
 
 
 import app from './app'
@@ -55,10 +55,10 @@ const start = async () => {
     process.on('SIGTERM', () => natsWrapper.client.close())
 
 
-    await connect(url, {
+    await mongoose.connect(url, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
-      // useCreateIndex: true
+      useCreateIndex: true
     })
 
     console.log('Connected to database in: ', url)

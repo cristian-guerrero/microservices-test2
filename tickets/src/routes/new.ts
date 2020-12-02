@@ -23,14 +23,15 @@ async (req:Request, res: Response) => {
 
   const {title, price} = req.body 
 
-  const newTicket = Ticket.build({
+  // @ts-ignore
+  const newTicket = await  Ticket.create({
     title, 
     price,
     userId: req.currentUser!.id
 
   })
 
-   await newTicket.save()
+   // await newTicket.save()
 
    
   new TicketcreatedPublisher(natsWrapper.client).publish({

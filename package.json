@@ -6,7 +6,8 @@
     "client",
     "common",
     "nats-test",
-    "tickets"
+    "tickets",
+    "orders"
   ],
   "scripts": {
     "start:tickets": "ts-node-dev --watch tickets/src, tickets/src/index.ts"

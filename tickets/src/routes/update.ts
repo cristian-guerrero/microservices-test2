@@ -1,7 +1,6 @@
 import { Router, Request, Response, NextFunction } from 'express';
-import { requireAuth, NotFoundError, NotAuthorizeError } from '@microservices-commons/common';
+import { requireAuth, NotFoundError, NotAuthorizeError , validateRequest } from '@microservices-commons/common';
 import { Ticket } from '../models/tickets';
-import { validateRequest } from '@microservices-commons/common/build';
 import { body } from 'express-validator';
 import { natsWrapper } from '../nats-wrapper';
 import { TicketUpdatedPublisher } from '../events/publishers/ticket-update-publisher';
@@ -17,12 +16,15 @@ router.put('/api/tickets/:id',
   validateRequest,
   async (req: Request, res: Response, next: NextFunction) => {
 
-    const ticket = await Ticket.findById(req.params.id)
+    const ticket = await Ticket.findOne({
+      _id:req.params.id
+    })
 
     if (!ticket) {
      return  next(new NotFoundError())
     }
 
+    // @ts-ignore
     if(ticket?.userId !== req.currentUser!.id) {
 
       return next(new NotAuthorizeError())

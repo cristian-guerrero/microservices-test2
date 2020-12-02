@@ -2,7 +2,8 @@ import { Router, Request, Response, NextFunction, json } from 'express';
 import { body } from 'express-validator'
 import jwt from 'jsonwebtoken'
 
-import { validateRequest, BAdRequestError } from '@microservices-commons/common/build'
+import { validateRequest, BAdRequestError } from '@microservices-commons/common'
+
 import { User } from '../models/user.mode'
 
 const router = Router()
@@ -23,9 +24,9 @@ async (req: Request, res: Response, next: NextFunction) => {
         return next(new BAdRequestError('Email in use'))
     }
 
-    const user = User.build({ email, password })
+    const user = await User.create({ email, password })
 
-    await user.save()
+
 
     // generate JWT
     const userJwt = jwt.sign({
