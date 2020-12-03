@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: orders-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: orders
+  template:
+    metadata:
+      labels:
+        app: orders
+    spec:
+      containers:
+        - name: orders
+          image: guerrerocristian/orders
+          env:
+            - name: JWT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: env-secret
+                  key: JWT_KEY
+            - name: URL_DB_orders
+              valueFrom:
+                secretKeyRef:
+                  name: env-secret
+                  key: URL_DB_ORDERS
+            - name: NATS_URL
+              valueFrom:
+                secretKeyRef:
+                  name: env-secret
+                  key: NATS_URL
+            #- name: NATS_CLUSTER_ID
+            #  valueFrom:
+            #    secretKeyRef:
+            #      name: env-secret
+            #      key: NATS_CLUSTER_ID
+            - name: NATS_CLUSTER_ID
+              value: ticketing
+            - name: NATS_CLIENT_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: orders-clusterip-srv
+spec:
+  selector:
+    app: orders
+  type: ClusterIP
+  ports:
+    - name: orders
+      protocol: TCP
+      port: 3002
+      targetPort: 3000
+#create secret object
+# kubectl create secret generic jwt-secret --from-literal=JWT_KEY=privatekey

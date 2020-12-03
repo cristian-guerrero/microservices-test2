@@ -37,6 +37,14 @@ build:
         manual:
           - src: "src/**/*.ts"
             dest: .
+    - image: guerrerocristian/orders
+        context: orders
+        docker:
+          dockerfile: Dockerfile
+        sync:
+          manual:
+            - src: "src/**/*.ts"
+              dest: .
     #- image: guerrerocristian/tickets
     #  context: .
     #  docker:

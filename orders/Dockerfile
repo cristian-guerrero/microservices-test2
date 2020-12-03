@@ -4,4 +4,4 @@ RUN yarn install --production=true
 COPY . .
 CMD ["yarn", "start"]
 
- # docker build -t guerrerocristian/tickets .
+ # docker build -t guerrerocristian/orders .
