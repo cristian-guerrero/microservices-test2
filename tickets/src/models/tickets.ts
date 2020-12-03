@@ -1,6 +1,8 @@
 import {Schema, Model, Document, model} from 'mongoose'
 
-
+/**
+ * @deprecated
+ */
 interface TicketAttrs {
   title: string
   price: number

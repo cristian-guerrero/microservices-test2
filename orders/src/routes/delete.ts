@@ -1,4 +1,4 @@
-import {Request, Response, Router} from 'express'
+import { Request, Response, Router } from 'express'
 
 const router = Router()
 
@@ -9,4 +9,4 @@ router.delete('/api/orders', async (req: Request, res: Response) => {
 })
 
 
-export {router as deleteOrderRouter}
+export { router as deleteOrderRouter }
