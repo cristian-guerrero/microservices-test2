@@ -1,7 +1,8 @@
-import { Request, Response, Router } from 'express'
-import { requireAuth, validateRequest } from '@microservices-commons/common'
+import { NextFunction, Request, Response, Router } from 'express'
+import { NotFoundError, requireAuth, validateRequest } from '@microservices-commons/common'
 import { body } from 'express-validator'
 import mongoose from 'mongoose'
+import { Ticket } from '../models/ticket'
 
 
 const router = Router()
@@ -15,8 +16,16 @@ router.post('/api/orders',
       .withMessage('Ticket id must be provided')
   ],
   validateRequest,
-  async (req: Request, res: Response) => {
+  async (req: Request, res: Response, next: NextFunction) => {
 
+
+    const { ticketId } = req.body
+
+    const ticket = await Ticket.findById(ticketId)
+
+    if(!ticket) {
+      return next(new NotFoundError())
+    }
 
     res.send({})
   })

@@ -1,9 +1,7 @@
 import  { model, Schema, Document } from 'mongoose'
 import  {OrderStatus } from '@microservices-commons/common'
+import { TicketDoc } from './ticket'
 
-interface TicketDoc {
-
-}
 
 
 interface OrderDoc extends Document {
