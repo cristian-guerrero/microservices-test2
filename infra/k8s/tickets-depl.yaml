@@ -40,7 +40,7 @@ spec:
               value: ticketing
             - name: NATS_CLIENT_ID
               valueFrom:
-                fieldRef: 
+                fieldRef:
                   fieldPath: metadata.name
 
 ---

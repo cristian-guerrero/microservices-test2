@@ -1,4 +1,4 @@
-From node:lts-alpine
+FROM node:lts-alpine
 COPY package.json .
 RUN yarn install --production=true
 COPY . .

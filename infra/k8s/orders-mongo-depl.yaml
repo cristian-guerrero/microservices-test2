@@ -1,6 +1,6 @@
 apiVersion: apps/v1
 kind: Deployment
-metadata: 
+metadata:
   name: orders-mongo-depl
 spec:
   replicas: 1
@@ -16,7 +16,7 @@ spec:
         - name: orders-mongo
           image: mongo:4.0.20-xenial
 ---
-apiVersion: v1 
+apiVersion: v1
 kind: Service
 metadata:
   name: orders-mongo-clusterip-srv

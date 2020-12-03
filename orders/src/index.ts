@@ -10,8 +10,8 @@ const checkEnvironmet = () => {
   if (!process.env.JWT_KEY) {
     throw new Error('process.env.JWT_KEY is not defined')
   }
-  if (!process.env.URL_DB_TICKETS) {
-    throw new Error('process.env.URL_DB_TICKETS is not defined')
+  if (!process.env.URL_DB_ORDERS) {
+    throw new Error('process.env.URL_DB_ORDERS is not defined')
   }
   if (!process.env.NATS_URL) {
     throw new Error('process.env.NATS_URL is not defined')
@@ -31,7 +31,7 @@ const start = async () => {
   checkEnvironmet()
 
 
-  const url = process.env.URL_DB_TICKETS!
+  const url = process.env.URL_DB_ORDERS!
 
   try {
 

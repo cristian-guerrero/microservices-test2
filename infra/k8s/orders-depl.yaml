@@ -21,7 +21,7 @@ spec:
                 secretKeyRef:
                   name: env-secret
                   key: JWT_KEY
-            - name: URL_DB_orders
+            - name: URL_DB_ORDERS
               valueFrom:
                 secretKeyRef:
                   name: env-secret
@@ -55,7 +55,7 @@ spec:
   ports:
     - name: orders
       protocol: TCP
-      port: 3002
+      port: 3003
       targetPort: 3000
 #create secret object
 # kubectl create secret generic jwt-secret --from-literal=JWT_KEY=privatekey
