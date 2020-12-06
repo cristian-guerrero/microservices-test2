@@ -5,7 +5,7 @@ import { signingTest } from '../../test/signup'
 import { Order } from '../../models/order'
 import { Ticket } from '../../models/ticket'
 import { OrderStatus } from '@microservices-commons/common'
-
+import { natsWrapper } from '../../nats-wrapper'
 
 
 it('returns an error if the ticket does not exist', async () => {
@@ -17,7 +17,7 @@ it('returns an error if the ticket does not exist', async () => {
   await request(app)
     .post('/api/orders')
     .set('Cookie', cookie)
-    .send( {
+    .send({
       ticketId
     })
     .expect(404)
@@ -30,22 +30,22 @@ it('returns an error if the ticket is already reserved', async () => {
   const userId = mongoose.Types.ObjectId().toHexString()
   const cookie = signingTest()
 
-  const ticket = await Ticket.create( {
+  const ticket = await Ticket.create({
     title: 'Concert',
     price: 30
   })
 
-  const order = await Order.create( {
+  const order = await Order.create({
     ticket,
-    userId: userId ,
+    userId: userId,
     status: OrderStatus.Created,
     expirationAt: new Date()
   })
 
   await request(app)
     .post('/api/orders')
-    .set('Cookie',cookie)
-    .send({ticketId: ticket.id })
+    .set('Cookie', cookie)
+    .send({ ticketId: ticket.id })
     .expect(400)
 
 
@@ -54,10 +54,9 @@ it('returns an error if the ticket is already reserved', async () => {
 
 it('reserves a ticket ', async () => {
 
-  const userId = mongoose.Types.ObjectId().toHexString()
   const cookie = signingTest()
 
-  const ticket = await Ticket.create( {
+  const ticket = await Ticket.create({
     title: 'Concert',
     price: 30
   })
@@ -65,11 +64,28 @@ it('reserves a ticket ', async () => {
   await request(app)
     .post('/api/orders')
     .set('Cookie', cookie)
-    .send({ticketId: ticket.id })
+    .send({ ticketId: ticket.id })
     .expect(201)
 })
 
 
-it.todo('emit an order created event')
+it('emit an order created event', async () => {
+
+  const cookie = signingTest()
+
+  const ticket = await Ticket.create({
+    title: 'Concert',
+    price: 30
+  })
+
+  await request(app)
+    .post('/api/orders')
+    .set('Cookie', cookie)
+    .send({ ticketId: ticket.id })
+    .expect(201);
+
+  expect(natsWrapper.client.publish).toHaveBeenCalled()
+
+})
 
 

@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response, Router } from 'express'
 import { Order } from '../models/order'
 import { NotAuthorizeError, NotFoundError, OrderStatus } from '@microservices-commons/common'
-import { OrderCancelledPublisher } from '../events/order-cancelled-publisher'
+import { OrderCancelledPublisher } from '../events/publishers/order-cancelled-publisher'
 import { natsWrapper } from '../nats-wrapper'
 
 const router = Router()

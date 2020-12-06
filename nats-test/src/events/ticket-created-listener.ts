@@ -8,7 +8,7 @@ import { Subjects } from './subjects';
 class TicketCreatedListener extends Listener<TicketCreatedEvent> {
 
   subject: Subjects.TicketCreated = Subjects.TicketCreated
-  queueGrouName = 'payments-service'
+  queueGroupName = 'payments-service'
 
   onMessage(parsedData: TicketCreatedEvent['data'], msg: Message): void {
 
