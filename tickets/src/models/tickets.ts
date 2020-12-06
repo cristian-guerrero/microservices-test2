@@ -15,7 +15,7 @@ interface TicketDoc extends Document {
   title: string
   price: number
   userId: string
-  version: number
+  version?: number
 
 }
 
