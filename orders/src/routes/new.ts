@@ -12,6 +12,8 @@ import mongoose from 'mongoose'
 import { Ticket } from '../models/ticket'
 import { Order } from '../models/order'
 import { isReserve } from '../service'
+import { OrderCreatedPublisher } from '../events/order-created-publisher'
+import { natsWrapper } from '../nats-wrapper'
 
 
 const router = Router()
@@ -47,6 +49,17 @@ router.post('/api/orders',
       status: OrderStatus.Created,
       expirationAt: expiration,
       ticket
+    })
+
+    new OrderCreatedPublisher(natsWrapper.client).publish({
+      id: order.id,
+      status: order.status,
+      userId: order.userId,
+      expiresAt: expiration.toISOString(),
+      ticket: {
+        id: ticket.id,
+        price: ticket.price
+      }
     })
 
     res.status(201).send(order)
