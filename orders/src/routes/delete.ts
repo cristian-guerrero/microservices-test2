@@ -4,7 +4,7 @@ import { NotAuthorizeError, NotFoundError, OrderStatus } from '@microservices-co
 
 const router = Router()
 
-router.delete('/api/orders',
+router.delete('/api/orders/:orderId',
   async (req: Request, res: Response, next: NextFunction) => {
 
 
