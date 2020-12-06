@@ -11,7 +11,7 @@ interface Event {
 abstract class Listener<T extends Event> {
 
   abstract subject: T['subject']
-  abstract queueGrouName: string
+  abstract queueGroupName: string
 
   abstract onMessage (parsedData: T['data'], msg: Message): void
 
@@ -28,18 +28,18 @@ abstract class Listener<T extends Event> {
       .setDeliverAllAvailable()
       .setManualAckMode(true)
       .setAckWait(this.ackWait)
-      .setDurableName(this.queueGrouName)
+      .setDurableName(this.queueGroupName)
   }
 
   listen() {
-    const suscription = this.client.subscribe(
+    const subscription = this.client.subscribe(
       this.subject,
-      this.queueGrouName,
+      this.queueGroupName,
       this.subscriptionOptions()
     )
 
-    suscription.on('message', (msg: Message) => {
-      console.log(`Message received: ${this.subject} / ${this.queueGrouName}`)
+    subscription.on('message', (msg: Message) => {
+      console.log(`Message received: ${this.subject} / ${this.queueGroupName}`)
 
       const parsedData = this.parseMessage(msg)
 
