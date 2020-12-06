@@ -3,9 +3,11 @@ import mongoose from 'mongoose'
 
 import app from './app'
 import { natsWrapper } from './nats-wrapper';
+import { TicketCreatedListener } from './events/listeners/ticket-created-listener'
+import { TicketUpdatedListener } from './events/listeners/ticket-updated-listener'
 
 
-const checkEnvironmet = () => {
+const checkEnvironment = () => {
 
   if (!process.env.JWT_KEY) {
     throw new Error('process.env.JWT_KEY is not defined')
@@ -28,7 +30,7 @@ const checkEnvironmet = () => {
 
 const start = async () => {
 
-  checkEnvironmet()
+  checkEnvironment()
 
 
   const url = process.env.URL_DB_ORDERS!
@@ -54,6 +56,8 @@ const start = async () => {
     process.on('SIGINT', () => natsWrapper.client.close())
     process.on('SIGTERM', () => natsWrapper.client.close())
 
+    new TicketCreatedListener(natsWrapper.client).listen()
+    new TicketUpdatedListener(natsWrapper.client).listen()
 
     await mongoose.connect(url, {
       useNewUrlParser: true,
