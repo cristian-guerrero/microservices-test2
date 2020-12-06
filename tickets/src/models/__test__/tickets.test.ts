@@ -23,5 +23,21 @@ it('implements optimistic concurrency control ', async (done) => {
   throw new Error('Should not reach this point ')
 
 
-  // console.log(ticket)
+})
+
+it('increments the version number on multiples saves ', async () => {
+
+  const ticket = await Ticket.create({
+    title: 'concert',
+    price: 20,
+    userId: '123235'
+  })
+
+  expect(ticket.version).toEqual(0)
+  await ticket.save()
+  expect(ticket.version).toEqual(1)
+  await ticket.save()
+  expect(ticket.version).toEqual(2)
+
+
 })
