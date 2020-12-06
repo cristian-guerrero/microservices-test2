@@ -1,18 +1,15 @@
 import request from 'supertest'
-import app from '../../app';
-import { Ticket } from '../../models/tickets';
-import { signinTest } from '../../test/signup';
-import { natsWrapper } from '../../nats-wrapper';
-
+import app from '../../app'
+import { Ticket } from '../../models/tickets'
+import { signinTest } from '../../test/signup'
+import { natsWrapper } from '../../nats-wrapper'
 
 
 it('has a route handler listening to /api/tickers for post request', async () => {
 
   const response = await request(app)
     .post('/api/tickets')
-    .send({
-
-    })
+    .send({})
 
   expect(response.status).not.toEqual(404)
 })
@@ -27,7 +24,6 @@ it('can only be accessed if he user is signed in ', async () => {
 })
 
 it('returns a status other than 401 if the user is signed in ', async () => {
-
 
 
   const response = await request(app)
@@ -111,8 +107,8 @@ it('publishes an event ', async () => {
       price: 30
     }).expect(201)
 
-    // console.log(natsWrapper)
+  // console.log(natsWrapper)
 
-    expect(natsWrapper.client.publish).toHaveBeenCalled()
+  expect(natsWrapper.client.publish).toHaveBeenCalled()
 
 })

@@ -1,11 +1,8 @@
-import request from 'supertest';
-import app from '../app'
-
 import jwt from 'jsonwebtoken'
 import mongoose from 'mongoose';
 
 
-const signinTest =  () => {
+const signingTest =  () => {
 
 
   const payload = {
@@ -26,4 +23,4 @@ const signinTest =  () => {
 }
 
 
-export { signinTest }
+export { signingTest }
