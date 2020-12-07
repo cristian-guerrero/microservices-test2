@@ -1,10 +1,19 @@
-import { Document, model, Schema } from 'mongoose'
+import { Document, Model, model, Schema } from 'mongoose'
 import { updateIfCurrentPlugin } from 'mongoose-update-if-current'
 
 interface TicketDoc extends Document {
   title: string
   price: number
   version?: number
+}
+
+interface EventAttr {
+  id: string
+  version : number
+}
+
+interface TicketModel extends Model<TicketDoc> {
+  findByEvent(event: EventAttr): Promise<TicketDoc | null >
 }
 
 const ticketSchema = new Schema({
@@ -29,7 +38,17 @@ const ticketSchema = new Schema({
 ticketSchema.set('versionKey', 'version')
 ticketSchema.plugin(updateIfCurrentPlugin)
 
-const Ticket = model<TicketDoc>('Ticket', ticketSchema)
+
+
+ticketSchema.statics.findByEvent = async (event: EventAttr) => {
+  return Ticket.findOne({
+    _id: event.id,
+    version: event.version -1
+  })
+}
+
+
+const Ticket = model<TicketDoc, TicketModel>('Ticket', ticketSchema)
 
 
 
