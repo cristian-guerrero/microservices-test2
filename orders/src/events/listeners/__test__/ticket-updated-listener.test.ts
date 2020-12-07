@@ -1,4 +1,3 @@
-
 import { natsWrapper } from '../../../nats-wrapper'
 import { TicketCreatedEvent } from '@microservices-commons/common'
 import mongoose from 'mongoose'
@@ -49,10 +48,29 @@ it('finds, updates, and saves a ticket ', async () => {
 })
 
 
-
 it('acks the message', async () => {
+  const { msg, listener, data, ticket } = await setup()
 
+  await listener.onMessage(data, msg)
 
+  expect(msg.ack).toHaveBeenCalled()
 })
 
 
+it('does not call ack if the event has a future version ', async () => {
+
+  const { msg, listener, data, ticket } = await setup()
+
+  data.version = 10
+
+  try {
+
+    await listener.onMessage(data, msg)
+
+  } catch (e) {
+
+  }
+
+  expect(msg.ack).not.toHaveBeenCalled()
+
+})
