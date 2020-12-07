@@ -1,7 +1,7 @@
-import  { model, Schema, Document } from 'mongoose'
-import  {OrderStatus } from '@microservices-commons/common'
+import { model, Schema, Document } from 'mongoose'
+import { OrderStatus } from '@microservices-commons/common'
 import { TicketDoc } from './ticket'
-
+import { updateIfCurrentPlugin } from 'mongoose-update-if-current'
 
 
 interface OrderDoc extends Document {
@@ -10,6 +10,7 @@ interface OrderDoc extends Document {
   status: OrderStatus
   expirationAt: Date
   ticket: TicketDoc
+  version?: number
 }
 
 const orderSchema = new Schema({
@@ -39,6 +40,9 @@ const orderSchema = new Schema({
       }
     }
   })
+
+orderSchema.set('versionKey', 'version')
+orderSchema.plugin(updateIfCurrentPlugin)
 
 
 const Order = model<OrderDoc>('Order', orderSchema)

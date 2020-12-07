@@ -1,15 +1,6 @@
-import {Schema, Model, Document, model} from 'mongoose'
+import {Schema, Document, model} from 'mongoose'
 import { updateIfCurrentPlugin } from 'mongoose-update-if-current'
 
-/**
- * @deprecated
- */
-interface TicketAttrs {
-  title: string
-  price: number
-  userId: string
-
-}
 
 interface TicketDoc extends Document {
   title: string

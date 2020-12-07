@@ -1,12 +1,13 @@
 import { Document, model, Schema } from 'mongoose'
+import { updateIfCurrentPlugin } from 'mongoose-update-if-current'
 
 interface TicketDoc extends Document {
-
   title: string
   price: number
+  version?: number
 }
 
-const schema = new Schema({
+const ticketSchema = new Schema({
   title: {
     type: String
   },
@@ -24,7 +25,11 @@ const schema = new Schema({
   }
 })
 
-const Ticket = model<TicketDoc>('Ticket', schema)
+
+ticketSchema.set('versionKey', 'version')
+ticketSchema.plugin(updateIfCurrentPlugin)
+
+const Ticket = model<TicketDoc>('Ticket', ticketSchema)
 
 
 
