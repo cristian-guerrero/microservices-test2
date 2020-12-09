@@ -1,4 +1,4 @@
-import {Schema, Document, model} from 'mongoose'
+import { Schema, Document, model } from 'mongoose'
 import { updateIfCurrentPlugin } from 'mongoose-update-if-current'
 
 
@@ -7,6 +7,7 @@ interface TicketDoc extends Document {
   price: number
   userId: string
   version?: number
+  orderID?: string
 
 }
 
@@ -30,6 +31,9 @@ const ticketSchema = new Schema({
     userId: {
       type: String,
       required: true
+    },
+    orderId: {
+      type: String
     }
   },
   {
@@ -53,4 +57,4 @@ ticketSchema.statics.build = (attrs: TicketAttrs) => {
 
 const Ticket = model<TicketDoc>('Ticket', ticketSchema)
 
-export {Ticket}
+export { Ticket }
