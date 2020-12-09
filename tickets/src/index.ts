@@ -1,11 +1,13 @@
-import {connect} from 'mongoose'
+import { connect } from 'mongoose'
 
 
 import app from './app'
-import { natsWrapper } from './nats-wrapper';
+import { natsWrapper } from './nats-wrapper'
+import { OrderCreatedListener } from './events/listeners/order-created-listener'
+import { OrderCancelledListener } from './events/listeners/order-cancelled-listener'
 
 
-const checkEnvironmet = () => {
+const checkEnvironment = () => {
 
   if (!process.env.JWT_KEY) {
     throw new Error('process.env.JWT_KEY is not defined')
@@ -28,7 +30,7 @@ const checkEnvironmet = () => {
 
 const start = async () => {
 
-  checkEnvironmet()
+  checkEnvironment()
 
 
   const url = process.env.URL_DB_TICKETS!
@@ -53,6 +55,9 @@ const start = async () => {
 
     process.on('SIGINT', () => natsWrapper.client.close())
     process.on('SIGTERM', () => natsWrapper.client.close())
+
+    new OrderCreatedListener(natsWrapper.client).listen()
+    new OrderCancelledListener(natsWrapper.client).listen()
 
 
     await connect(url, {

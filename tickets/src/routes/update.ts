@@ -1,5 +1,11 @@
 import { Router, Request, Response, NextFunction } from 'express';
-import { requireAuth, NotFoundError, NotAuthorizeError , validateRequest } from '@microservices-commons/common';
+import {
+  requireAuth,
+  NotFoundError,
+  NotAuthorizeError,
+  validateRequest,
+  BAdRequestError
+} from '@microservices-commons/common'
 import { Ticket } from '../models/tickets';
 import { body } from 'express-validator';
 import { natsWrapper } from '../nats-wrapper';
@@ -22,6 +28,12 @@ router.put('/api/tickets/:id',
 
     if (!ticket) {
      return  next(new NotFoundError())
+    }
+
+    // return error if the ticket is in some state
+    // when the order  is cancelled, orderId is equal to undefined
+    if(ticket.orderId) {
+      return next(new BAdRequestError('Cannot  edit a reserved ticket '))
     }
 
     // @ts-ignore
