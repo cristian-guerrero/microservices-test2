@@ -1,16 +1,17 @@
-import { rejects } from 'assert';
-import { Stan } from 'node-nats-streaming';
-import { Subjects } from './subjects';
+import { rejects } from 'assert'
+import { Stan } from 'node-nats-streaming'
+import { Subjects } from './subjects'
 
 
 interface Event {
   subject: Subjects
   data: any
 }
+
 export abstract class Publisher<T extends Event> {
 
   abstract subject: T['subject']
-  private client: Stan
+  protected client: Stan
 
   constructor(client: Stan) {
 
