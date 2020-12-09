@@ -34,6 +34,5 @@ export class OrderCreatedListener extends Listener<OrderCreatedEvent> {
 
     msg.ack()
 
-
   }
 }
