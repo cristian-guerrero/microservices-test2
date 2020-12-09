@@ -2,6 +2,7 @@ import { Listener, OrderCreatedEvent, Subjects } from '@microservices-commons/co
 import { Message } from 'node-nats-streaming'
 import { queueGroupName } from './queue-group-name'
 import { Ticket } from '../../models/tickets'
+import { TicketUpdatedPublisher } from '../publishers/ticket-update-publisher'
 
 export class OrderCreatedListener extends Listener<OrderCreatedEvent> {
 
@@ -21,6 +22,8 @@ export class OrderCreatedListener extends Listener<OrderCreatedEvent> {
     ticket.set({orderId: parsedData.id })
 
     await ticket.save()
+
+    // new TicketUpdatedPublisher().publish(ticket)
 
     msg.ack()
 

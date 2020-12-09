@@ -7,7 +7,7 @@ interface TicketDoc extends Document {
   price: number
   userId: string
   version?: number
-  orderID?: string
+  orderId?: string
 
 }
 

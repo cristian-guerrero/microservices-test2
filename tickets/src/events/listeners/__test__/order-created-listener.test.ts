@@ -32,10 +32,32 @@ const setup = async () => {
 
   // @ts-ignore
   const msg: Message = {
-    ack: jest.fn
+    ack: jest.fn()
   }
 
-  return {listener, data, ticket, msg}
+  return { listener, data, ticket, msg }
 
 }
 
+it('sets the userId of the ticker ', async () => {
+
+  const { listener, ticket, data, msg } = await setup()
+
+  await listener.onMessage(data, msg)
+
+  const updatedTicket = await Ticket.findById(ticket.id)
+  expect(updatedTicket!.orderId).toEqual(data.id)
+
+
+})
+
+
+it('acks the message ', async () => {
+
+  const { listener, ticket, data, msg } = await setup()
+
+  await listener.onMessage(data, msg)
+
+  expect(msg.ack).toHaveBeenCalled()
+
+})
