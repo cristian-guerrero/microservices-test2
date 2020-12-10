@@ -2,6 +2,10 @@ video 98
 
 # kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v0.41.0/deploy/static/provider/cloud/deploy.yaml
 
+-- cuando salga el error de nginx al inciar con skaffold dev ejecutar el siguiente comando
+# kubectl delete -A ValidatingWebhookConfiguration ingress-nginx-admission
+
+
 para pasar por la pantalla de pagina insegura de crome se escribe thisisunsafe
 thisisunsafe
 
