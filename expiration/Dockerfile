@@ -15,7 +15,7 @@ RUN yarn install --production=true
 COPY . .
 CMD ["yarn", "start"]
 
- # docker build -t guerrerocristian/tickets .
+ # docker build -t guerrerocristian/expiration .
 
 # construir desde la carpeta raiz
  # docker build -t  ticketscontainer -f tickets/Dockerfile .
