@@ -38,7 +38,7 @@ const start = async () => {
   try {
 
     // console.log('Pod id ->' +process.env.NATS_CLIENT_ID )
-    // console.log('culster id ->' +process.env.NATS_CLUSTER_ID )
+    // console.log('cluster id ->' +process.env.NATS_CLUSTER_ID )
     // console.log('url id ->' +process.env.NATS_URL )
 
     await natsWrapper.connect(

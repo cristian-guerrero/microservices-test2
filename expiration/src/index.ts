@@ -26,7 +26,6 @@ const start = async () => {
   checkEnvironment()
 
   try {
-
     await natsWrapper.connect(
       //'ticketing',
       process.env.NATS_CLUSTER_ID!,
@@ -44,9 +43,17 @@ const start = async () => {
 
     new OrderCreatedListener(natsWrapper.client).listen()
 
+
+    console.log('Expiration service up!!')
   } catch (err) {
 
+
+    // process.on('SIGINT', () => natsWrapper.client.close())
+    // process.on('SIGTERM', () => natsWrapper.client.close())
     console.error(err)
+    process.exit()
+    process.on('SIGINT', () => natsWrapper.client.close())
+    process.on('SIGTERM', () => natsWrapper.client.close())
   }
 
 }
