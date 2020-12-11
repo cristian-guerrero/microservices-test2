@@ -4,8 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
-    "@microservices-commons/common": "^1.0.40",
-    "node-nats-streaming": "^0.3.2",
+    "@microservices-commons/common": "^1.0.45",
     "@types/cookie-session": "^2.0.41",
     "@types/express": "^4.17.9",
     "@types/jsonwebtoken": "^8.5.0",
@@ -15,6 +14,7 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.10.14",
     "mongoose-update-if-current": "^1.4.0",
+    "node-nats-streaming": "^0.3.2",
     "ts-node-dev": "^1.0.0",
     "typescript": "^4.0.5"
   },

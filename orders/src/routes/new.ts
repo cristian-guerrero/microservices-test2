@@ -52,12 +52,12 @@ router.post('/api/orders',
 
     new OrderCreatedPublisher(natsWrapper.client).publish({
       version: order.version!,
-      id: order.id,
+      id: order.id!,
       status: order.status,
       userId: order.userId,
       expiresAt: expiration.toISOString(),
       ticket: {
-        id: ticket.id,
+        id: ticket.id!,
         price: ticket.price
       }
     })

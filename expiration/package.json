@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
-    "@microservices-commons/common": "^1.0.40",
+    "@microservices-commons/common": "^1.0.45",
     "@types/bull": "^3.14.4",
     "bull": "^3.20.0",
     "node-nats-streaming": "^0.3.2",
