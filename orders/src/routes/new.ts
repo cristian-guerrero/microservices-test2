@@ -18,7 +18,7 @@ import { natsWrapper } from '../nats-wrapper'
 
 const router = Router()
 
-const EXPIRATION_WINDOW_SECONDS = 15 * 60
+const EXPIRATION_WINDOW_SECONDS = 1 * 60  // 15 * 60
 
 router.post('/api/orders',
   requireAuth,
@@ -42,7 +42,6 @@ router.post('/api/orders',
 
     const expiration = new Date()
     expiration.setSeconds(expiration.getSeconds() + EXPIRATION_WINDOW_SECONDS)
-
 
     const order = await Order.create({
       userId: req.currentUser!.id,
