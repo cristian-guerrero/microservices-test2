@@ -15,6 +15,9 @@ const checkEnvironment = () => {
   if (!process.env.NATS_CLIENT_ID) {
     throw new Error('process.env.NATS_CLIENT_ID is not defined')
   }
+  if (!process.env.REDIS_HOST_EXPIRATION) {
+    throw new Error('process.env.REDIS_HOST_EXPIRATION is not defined')
+  }
 
 }
 
@@ -22,9 +25,6 @@ const checkEnvironment = () => {
 const start = async () => {
 
   checkEnvironment()
-
-
-  const url = process.env.URL_DB_TICKETS!
 
   try {
 
