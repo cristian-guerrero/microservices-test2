@@ -12,8 +12,8 @@ const checkEnvironment = () => {
   if (!process.env.JWT_KEY) {
     throw new Error('process.env.JWT_KEY is not defined')
   }
-  if (!process.env.URL_DB_TICKETS) {
-    throw new Error('process.env.URL_DB_TICKETS is not defined')
+  if (!process.env.URL_DB_PAYMENTS) {
+    throw new Error('process.env.URL_DB_PAYMENTS is not defined')
   }
   if (!process.env.NATS_URL) {
     throw new Error('process.env.NATS_URL is not defined')
@@ -33,7 +33,7 @@ const start = async () => {
   checkEnvironment()
 
 
-  const url = process.env.URL_DB_TICKETS!
+  const url = process.env.URL_DB_PAYMENTS!
 
   try {
 
@@ -70,7 +70,7 @@ const start = async () => {
     app.listen(3000, () => {
 
 
-      console.log('Tickets server listening on localhost:3000')
+      console.log('Payments server listening on localhost:3000')
     })
 
   } catch (err) {

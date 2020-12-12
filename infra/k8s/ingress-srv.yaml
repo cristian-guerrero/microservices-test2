@@ -25,10 +25,14 @@ spec:
             backend:
               serviceName: orders-clusterip-srv
               servicePort: 3003
+          - path: /api/payments/?(.*)
+            pathType: Prefix
+            backend:
+              serviceName: payments-clusterip-srv
+              servicePort: 3004
           - path: /?(.*)
             pathType: Prefix
             backend:
               serviceName: client-clusterip-srv
               servicePort: 3000
 
-          

@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: payments-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: payments
+  template:
+    metadata:
+      labels:
+        app: payments
+    spec:
+      containers:
+        - name: payments
+          image: guerrerocristian/payments
+          env:
+            - name: JWT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: env-secret
+                  key: JWT_KEY
+            - name: URL_DB_PAYMENTS
+              valueFrom:
+                secretKeyRef:
+                  name: env-secret
+                  key: URL_DB_PAYMENTS
+            - name: NATS_URL
+              valueFrom:
+                secretKeyRef:
+                  name: env-secret
+                  key: NATS_URL
+            #- name: NATS_CLUSTER_ID
+            #  valueFrom:
+            #    secretKeyRef:
+            #      name: env-secret
+            #      key: NATS_CLUSTER_ID
+            - name: NATS_CLUSTER_ID
+              value: ticketing
+            - name: NATS_CLIENT_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: payments-clusterip-srv
+spec:
+  selector:
+    app: payments
+  type: ClusterIP
+  ports:
+    - name: payments
+      protocol: TCP
+      port: 3004
+      targetPort: 3000
+#create secret object
+# kubectl create secret generic jwt-secret --from-literal=JWT_KEY=privatekey
