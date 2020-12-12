@@ -5,6 +5,7 @@ import { updateIfCurrentPlugin } from 'mongoose-update-if-current'
 
 interface OrderDoc extends Document {
 
+  id: string
   userId: string
   version: number
   price: number
@@ -19,6 +20,9 @@ const orderSchema = new Schema({
     },
     status: {
       type: String,
+      // require: true
+      enum: Object.values(OrderStatus),
+      default: OrderStatus.Created
     },
     price: {
       type: Number,
