@@ -4,7 +4,7 @@ import { Message } from 'node-nats-streaming'
 import { Order } from '../../src/models/order'
 
 
-export class OrderCreateListener extends Listener<OrderCreatedEvent> {
+export class OrderCreatedListener extends Listener<OrderCreatedEvent> {
 
   queueGroupName = queueGroupName
   subject: Subjects.OrderCreated = Subjects.OrderCreated
@@ -14,7 +14,7 @@ export class OrderCreateListener extends Listener<OrderCreatedEvent> {
 
 
     const order = await Order.create({
-      id: parsedData.ticket.id,
+      _id: parsedData.id,
       price: parsedData.ticket.price,
       status: parsedData.status,
       userId: parsedData.userId,
