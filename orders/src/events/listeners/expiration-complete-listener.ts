@@ -12,7 +12,7 @@ export class ExpirationCompleteListener extends Listener<ExpirationCompleteEvent
   async onMessage(parsedData: ExpirationCompleteEvent['data'], msg: Message) {
 
 
-    const order = await Order.findById(parsedData.orderId)
+    const order = await Order.findById(parsedData.orderId).populate('ticket')
 
     if (!order) {
       throw new Error('Order not found')
@@ -23,8 +23,10 @@ export class ExpirationCompleteListener extends Listener<ExpirationCompleteEvent
     }).save()
 
     await new OrderCancelledPublisher(this.client).publish({
-
-      id: order.id!, version: order.version!, ticket: { id: order.ticket.id! }
+      id: order.id!, version: order.version!,
+      ticket: {
+        id: order.ticket.id!
+      }
     })
 
     msg.ack()
