@@ -3,6 +3,8 @@ import { connect } from 'mongoose'
 
 import app from './app'
 import { natsWrapper } from './nats-wrapper'
+import { OrderCancelledListener } from './events/listeners/order-cancelled-listener'
+import { OrderCreatedListener } from './events/listeners/order-created-listener'
 
 
 
@@ -57,6 +59,9 @@ const start = async () => {
     process.on('SIGTERM', () => natsWrapper.client.close())
 
 
+    new OrderCancelledListener(natsWrapper.client).listen()
+
+    new OrderCreatedListener(natsWrapper.client).listen()
 
 
     await connect(url, {
