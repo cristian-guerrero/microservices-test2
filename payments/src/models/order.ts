@@ -1,7 +1,6 @@
 import { model, Schema, Document, Model } from 'mongoose'
 import { OrderStatus } from '@microservices-commons/common'
 import { updateIfCurrentPlugin } from 'mongoose-update-if-current'
-import { Ticket } from '../../../orders/src/models/ticket'
 
 interface EventAttr {
   id: string
@@ -11,8 +10,6 @@ interface EventAttr {
 interface OrderModel extends Model<OrderDoc> {
   findByEvent(event: EventAttr): Promise<OrderDoc | null >
 }
-
-
 
 interface OrderDoc extends Document {
 

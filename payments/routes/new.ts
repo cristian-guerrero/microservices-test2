@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response, Router } from 'express'
-import { requireAuth } from '@microservices-commons/common'
+import { requireAuth, validateRequest } from '@microservices-commons/common'
 import { body } from 'express-validator'
 
 
@@ -11,11 +11,20 @@ router.post('/api/payments',
     body('token').not().isEmpty(),
     body('orderId').not().isEmpty()
   ],
+  validateRequest,
   async (req: Request, res: Response, next: NextFunction) => {
-
 
     res.send({ success: true })
 
   })
+
+
+
+
+
+
+
+
+
 
 export {router as createChargeRouter}
