@@ -21,6 +21,11 @@ spec:
                 secretKeyRef:
                   name: env-secret
                   key: JWT_KEY
+            - name: STRIPE_KEY # stripe secret key
+              valueFrom:
+                secretKeyRef:
+                  name: env-secret
+                  key: STRIPE_KEY
             - name: URL_DB_PAYMENTS
               valueFrom:
                 secretKeyRef:

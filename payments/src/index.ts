@@ -26,6 +26,9 @@ const checkEnvironment = () => {
   if (!process.env.NATS_CLIENT_ID) {
     throw new Error('process.env.NATS_CLIENT_ID is not defined')
   }
+  if (!process.env.STRIPE_KEY) {
+    throw new Error('process.env.STRIPE_KEY is not defined')
+  }
 
 }
 

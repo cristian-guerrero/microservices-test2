@@ -5,9 +5,7 @@ import cookieSession from 'cookie-session'
 
 
 import { NotFoundError, errorHandler, currentUser } from '@microservices-commons/common'
-import { createChargeRouter } from '../routes/new'
-
-
+import { createChargeRouter } from './routes/new'
 
 
 const app = express()

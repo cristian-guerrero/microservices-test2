@@ -2,11 +2,11 @@ import jwt from 'jsonwebtoken'
 import mongoose from 'mongoose';
 
 
-const signingTest =  () => {
+const signingTest =  (id?: string) => {
 
 
   const payload = {
-    id: new mongoose.Types.ObjectId().toHexString(),
+    id: id || new mongoose.Types.ObjectId().toHexString(),
     email: 'test@test.com'
   }
 
