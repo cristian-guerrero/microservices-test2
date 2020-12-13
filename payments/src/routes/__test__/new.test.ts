@@ -5,7 +5,7 @@ import { signingTest } from '../../../../orders/src/test/signup'
 import { Order } from '../../models/order'
 import { OrderStatus } from '@microservices-commons/common'
 
-import {stripe} from '../../stripe'
+import { stripe } from '../../stripe'
 
 // jest.mock('../../stripe')
 
@@ -67,16 +67,18 @@ it('returns a 400 when purchasing a cancelled order', async () => {
 
 })
 
-it('returns a 204 with valid inputs', async () => {
+it('returns a 201 with valid inputs', async () => {
   const userId = Types.ObjectId().toHexString()
 
   const cookie = signingTest(userId)
+
+  const price = Math.floor(Math.random() * 100000)
 
   const order = await Order.create({
     version: 0,
     userId,
     status: OrderStatus.Created,
-    price: 20
+    price
   })
 
   // await order.set({ status: OrderStatus.Cancelled }).save()
@@ -84,10 +86,17 @@ it('returns a 204 with valid inputs', async () => {
   await request(app)
     .post('/api/payments')
     .set('Cookie', cookie)
-    .send( {
+    .send({
       token: 'tok_visa',
       orderId: order.id
     }).expect(201)
+
+
+  const stripeCharges = await stripe.charges.list({ limit: 50 })
+
+  const stripeCharge = stripeCharges.data.find(x => x.amount ===  price * 100)
+
+  expect(stripeCharge).toBeDefined()
 
   /*
   const chargeOptions = (stripe.charges.create as jest.Mock).mock.calls [0] [0]
