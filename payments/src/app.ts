@@ -5,6 +5,7 @@ import cookieSession from 'cookie-session'
 
 
 import { NotFoundError, errorHandler, currentUser } from '@microservices-commons/common'
+import { createChargeRouter } from '../routes/new'
 
 
 
@@ -32,7 +33,7 @@ app.use((req, res, next) => {
 
 // add routes
 
-
+app.use(createChargeRouter)
 
 
 app.all('*', async (req, res, next) => {
