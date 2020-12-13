@@ -31,7 +31,8 @@ let mongo: any
 
 process.env = Object.assign(process.env, {
   JWT_KEY: 'A_KEY',
-  NODE_ENV: 'test'
+  NODE_ENV: 'test',
+  STRIPE_KEY: 'sk_test_51Hxy6vH5RgEaYNEwtFWW6QDCXNrM7KrgdE26EN9N77jlMKBj5jSHWtw8bAzxkNjsT6GZrnzQbTeZyqw1NkuXDKqU00wKSijf5X'
 });
 
 // mockup
