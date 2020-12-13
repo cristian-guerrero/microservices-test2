@@ -1,7 +1,7 @@
 import { Listener, OrderCreatedEvent, Subjects } from '@microservices-commons/common'
 import { queueGroupName } from './queue-group-name'
 import { Message } from 'node-nats-streaming'
-import { Order } from '../../src/models/order'
+import { Order } from '../../models/order'
 
 
 export class OrderCreatedListener extends Listener<OrderCreatedEvent> {

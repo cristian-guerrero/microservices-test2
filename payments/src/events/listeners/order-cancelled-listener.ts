@@ -1,6 +1,6 @@
 import { Listener, OrderCancelledEvent, OrderStatus, Subjects } from '@microservices-commons/common'
 import { Message } from 'node-nats-streaming'
-import { Order } from '../../src/models/order'
+import { Order } from '../../models/order'
 import  {queueGroupName } from './queue-group-name'
 
 export class OrderCancelledListener extends Listener<OrderCancelledEvent> {
@@ -12,8 +12,8 @@ export class OrderCancelledListener extends Listener<OrderCancelledEvent> {
 
   async onMessage(parsedData: OrderCancelledEvent['data'], msg: Message) {
 
-    const order = await Order.findOne({
-      _id: parsedData.id,
+    const order = await Order.findByEvent({
+      id: parsedData.id,
       version: parsedData.version
     })
 

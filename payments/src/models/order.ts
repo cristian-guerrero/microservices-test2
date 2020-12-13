@@ -1,6 +1,17 @@
-import { model, Schema, Document } from 'mongoose'
+import { model, Schema, Document, Model } from 'mongoose'
 import { OrderStatus } from '@microservices-commons/common'
 import { updateIfCurrentPlugin } from 'mongoose-update-if-current'
+import { Ticket } from '../../../orders/src/models/ticket'
+
+interface EventAttr {
+  id: string
+  version : number
+}
+
+interface OrderModel extends Model<OrderDoc> {
+  findByEvent(event: EventAttr): Promise<OrderDoc | null >
+}
+
 
 
 interface OrderDoc extends Document {
@@ -41,6 +52,15 @@ orderSchema.set('versionKey', 'version')
 orderSchema.plugin(updateIfCurrentPlugin)
 
 
-const Order = model<OrderDoc>('Order', orderSchema)
+
+orderSchema.statics.findByEvent = async (event: EventAttr) => {
+  return Order.findOne({
+    _id: event.id,
+    version: event.version -1
+  })
+}
+
+
+const Order = model<OrderDoc, OrderModel>('Order', orderSchema)
 
 export { Order }
