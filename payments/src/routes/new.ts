@@ -10,6 +10,7 @@ import {
 import { body } from 'express-validator'
 import { Order } from '../models/order'
 import { stripe } from '../stripe'
+import { Payment } from '../models/payment'
 
 
 const router = Router()
@@ -36,16 +37,21 @@ router.post('/api/payments',
       return next(new NotAuthorizeError())
     }
 
-    if(order.status === OrderStatus.Cancelled) {
-      return next(new BAdRequestError('Canont pay for an cancelled order'))
+    if (order.status === OrderStatus.Cancelled) {
+      return next(new BAdRequestError('Cannot pay for an cancelled order'))
     }
 
-    console.log(`Stripe key: ${process.env.STRIPE_KEY!}`)
+    console.log(`Stripe key: ${ process.env.STRIPE_KEY! }`)
 
-    await stripe.charges.create( {
+    const charge = await stripe.charges.create({
       currency: 'usd',
       amount: order.price * 100,
       source: token
+    })
+
+    const payment = await Payment.create({
+      orderId,
+      stripeId: charge.id
     })
 
 
