@@ -465,10 +465,10 @@
     "@types/yargs" "^15.0.0"
     chalk "^4.0.0"
 
-"@microservices-commons/common@^1.0.45":
-  version "1.0.45"
-  resolved "https://registry.yarnpkg.com/@microservices-commons/common/-/common-1.0.45.tgz#9999078d98deb04f71decb170866eab3d6f08da8"
-  integrity sha512-lNxWk5k+i55T75SUnGRA7ZU3Nrmeh7rlY0h/tRiWC1x0IvX8bM2xtM/9Zd6yih75KOqgDdpg5+MCaK8J+IaY9Q==
+"@microservices-commons/common@^1.0.46":
+  version "1.0.46"
+  resolved "https://registry.yarnpkg.com/@microservices-commons/common/-/common-1.0.46.tgz#902e7b75af2464ee13f67a421d023fb9b79ef5cd"
+  integrity sha512-AQ81zZZyn+S4IAfwuc4+zzssLKmzmak5n/c2bQK+CdNx6JAAI3DvRyKiKaeuvJRBwK4ufwfnLrd9zyU7yqX8jw==
   dependencies:
     "@types/cookie-session" "^2.0.41"
     "@types/express" "^4.17.9"
