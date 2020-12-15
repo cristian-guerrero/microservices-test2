@@ -1,7 +1,7 @@
 
 
 
-import buildClient from '../api/build-client'
+// import buildClient from '../api/build-client'
 
 /**
  * 
@@ -13,15 +13,19 @@ const Index = ({ currentUser }) => {
 }
 
 /**
- * 
+ *
  * @param {*} context 
  */
-Index.getInitialProps = async (context) => {
+Index.getInitialProps = async (context, client, currentUser) => {
 
+  /*
   console.log('Landing Page!')
   const { data } = await buildClient(context).get('/api/users/currentuser')
 
   return data
+
+   */
+  return {}
 }
 
 export default Index
