@@ -1,5 +1,5 @@
 // import buildClient from '../api/build-client'
-
+import Link from 'next/link'
 /**
  *
  */
@@ -9,6 +9,11 @@ const Index = ({currentUser, tickets}) => {
     return <tr key={t.id}>
       <td>{t.title}</td>
       <td>{t.price}</td>
+      <td>
+        <Link href='/tickets/[ticketId]' as={`/tickets/${t.id}`}>
+          <a >View</a>
+        </Link>
+      </td>
     </tr>
   })
 
@@ -19,6 +24,7 @@ const Index = ({currentUser, tickets}) => {
       <tr>
         <th>Title</th>
         <th>Price</th>
+        <th>Link</th>
       </tr>
       </thead>
       <tbody>
