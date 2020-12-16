@@ -43,10 +43,11 @@ router.post('/api/orders',
     const expiration = new Date()
     expiration.setSeconds(expiration.getSeconds() + EXPIRATION_WINDOW_SECONDS)
 
+
     const order = await Order.create({
       userId: req.currentUser!.id,
       status: OrderStatus.Created,
-      expirationAt: expiration,
+      expiresAt: expiration,
       ticket
     })
 

@@ -21,6 +21,8 @@ router.get('/api/orders/:orderId',
      return  next(new NotAuthorizeError())
     }
 
+    console.log(order)
+
     res.send(order)
   })
 

@@ -19,7 +19,7 @@ interface OrderDoc extends Document {
 
   userId: string
   status: OrderStatus
-  expirationAt: Date
+  expiresAt: Date
   ticket: TicketDoc
   version?: number
 }
