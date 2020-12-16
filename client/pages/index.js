@@ -1,20 +1,36 @@
-
-
-
 // import buildClient from '../api/build-client'
 
 /**
- * 
+ *
  */
-const Index = ({ currentUser }) => {
+const Index = ({currentUser, tickets}) => {
 
-  // console.log('In the Index component  -> ', currentUser)
-  return currentUser ? <h1>You are signed in</h1> : <h1>You are Not signed in</h1>
+  const ticketList = tickets.map(t => {
+    return <tr key={t.id}>
+      <td>{t.title}</td>
+      <td>{t.price}</td>
+    </tr>
+  })
+
+  return <div>
+    <h1>Tickets</h1>
+    <table className={'table'}>
+      <thead>
+      <tr>
+        <th>Title</th>
+        <th>Price</th>
+      </tr>
+      </thead>
+      <tbody>
+      {ticketList}
+      </tbody>
+    </table>
+  </div>
 }
 
 /**
  *
- * @param {*} context 
+ * @param {*} context
  */
 Index.getInitialProps = async (context, client, currentUser) => {
 
@@ -25,7 +41,9 @@ Index.getInitialProps = async (context, client, currentUser) => {
   return data
 
    */
-  return {}
+
+  const {data} = await client.get('/api/tickets')
+  return {tickets: data}
 }
 
 export default Index
