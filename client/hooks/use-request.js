@@ -8,10 +8,10 @@ const useRequest = ({ url, method, body, onSuccess }) => {
 
   const [errors, setErrors] = useState(null)
 
-  const doRequest = async () => {
+  const doRequest = async (props = {}) => {
 
     try {
-      const response = await axios[method](url, body)
+      const response = await axios[method](url, {...body, ...props})
 
 
       if(onSuccess) {
