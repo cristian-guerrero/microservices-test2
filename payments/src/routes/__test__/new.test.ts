@@ -1,12 +1,12 @@
 import request from 'supertest'
 import { Types } from 'mongoose'
 import app from '../../app'
-import { signingTest } from '../../../../orders/src/test/signup'
 import { Order } from '../../models/order'
 import { OrderStatus } from '@microservices-commons/common'
 
 import { stripe } from '../../stripe'
 import { Payment } from '../../models/payment'
+import { signingTest } from '../../test/signup'
 
 // jest.mock('../../stripe')
 
