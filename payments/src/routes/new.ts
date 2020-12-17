@@ -43,7 +43,7 @@ router.post('/api/payments',
       return next(new BAdRequestError('Cannot pay for an cancelled order'))
     }
 
-    console.log(`Stripe key: ${ process.env.STRIPE_KEY! }`)
+    // console.log(`Stripe key: ${ process.env.STRIPE_KEY! }`)
 
     const charge = await stripe.charges.create({
       currency: 'usd',

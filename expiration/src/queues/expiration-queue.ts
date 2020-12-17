@@ -7,23 +7,41 @@ interface Payload {
   orderId: string
 }
 
-const expirationQueue = new Queue<Payload>('order:expiration', {
-  redis: {
-    host: process.env.REDIS_HOST_EXPIRATION
-  }
-})
+let expirationQueue: any
 
+const expirationConnect = () => {
 
-expirationQueue.process(async (job) => {
+  try{
 
-  new ExpirationCompletePublisher(natsWrapper.client).publish({
-    orderId: job.data.orderId
+   expirationQueue = new Queue<Payload>('order:expiration', {
+    redis: {
+      host: process.env.REDIS_HOST_EXPIRATION
+    }
   })
 
-  console.log('publish an expiration:complete event for orderId', job.data.orderId)
+    expirationQueue.process(async (job: any) => {
+
+      new ExpirationCompletePublisher(natsWrapper.client).publish({
+        orderId: job.data.orderId
+      })
+
+      console.log('publish an expiration:complete event for orderId', job.data.orderId)
 
 
 
-})
+    })
+
+  } catch (err) {
+    console.log(err)
+    process.exit()
+  }
+
+}
+
+expirationConnect()
+
+
+
+
 
 export { expirationQueue }
