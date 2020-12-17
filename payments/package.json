@@ -31,7 +31,8 @@
     "dev": "ts-node-dev --watch src, src/index.ts",
     "start": "yarn dev",
     "development": "yarn dev",
-    "test": "jest --watchAll --no-cache --maxWorkers=1"
+    "test": "jest --watchAll --no-cache --maxWorkers=1",
+    "test:ci": "jest"
   },
   "jest": {
     "preset": "ts-jest",
