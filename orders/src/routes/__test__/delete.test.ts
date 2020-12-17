@@ -1,10 +1,10 @@
 import request from 'supertest'
 import { Ticket } from '../../models/ticket'
-import { signinTest } from '../../../../tickets/src/test/signup'
 import app from '../../app'
 import { Order } from '../../models/order'
 import { OrderStatus } from '@microservices-commons/common'
 import { natsWrapper } from '../../nats-wrapper'
+import { signingTest } from '../../test/signup'
 
 
 it('marks an order as cancelled', async () => {
@@ -16,7 +16,7 @@ it('marks an order as cancelled', async () => {
     price: 72
   })
 
-  const user = signinTest()
+  const user = signingTest()
 
   const { body: order } = await request(app)
     .post('/api/orders')
@@ -43,7 +43,7 @@ it ('emits a order cancelled event', async () => {
     price: 72
   })
 
-  const user = signinTest()
+  const user = signingTest()
 
   const { body: order } = await request(app)
     .post('/api/orders')
