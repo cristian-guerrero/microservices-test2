@@ -16,7 +16,7 @@ const setup = async () => {
   })
   const order = await Order.create({
     status: OrderStatus.Created,
-    expirationAt: new Date(),
+    expiresAt: new Date(),
     ticket,
     userId: 'dkefhgy4'
   })

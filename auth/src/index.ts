@@ -12,6 +12,8 @@ const start = async () => {
     throw new Error('process.env.URL_DB_AUTH is not defined')
   }
 
+  console.log('Starting up ...')
+
   const url = process.env.URL_DB_AUTH
 
   try {

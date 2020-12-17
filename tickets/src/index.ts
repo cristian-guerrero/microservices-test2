@@ -30,6 +30,8 @@ const checkEnvironment = () => {
 
 const start = async () => {
 
+  console.log('Starting app...')
+
   checkEnvironment()
 
 

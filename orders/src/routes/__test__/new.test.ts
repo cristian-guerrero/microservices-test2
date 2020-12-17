@@ -10,6 +10,8 @@ import { natsWrapper } from '../../nats-wrapper'
 
 it('returns an error if the ticket does not exist', async () => {
 
+
+
   const ticketId = mongoose.Types.ObjectId()
 
   const cookie = signingTest()
@@ -39,7 +41,7 @@ it('returns an error if the ticket is already reserved', async () => {
     ticket,
     userId: userId,
     status: OrderStatus.Created,
-    expirationAt: new Date()
+    expiresAt: new Date()
   })
 
   await request(app)
