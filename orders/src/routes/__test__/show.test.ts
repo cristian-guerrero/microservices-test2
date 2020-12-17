@@ -1,7 +1,7 @@
 import request from 'supertest'
 import { Ticket } from '../../models/ticket'
-import { signinTest } from '../../../../tickets/src/test/signup'
 import app from '../../app'
+import { signingTest } from '../../test/signup'
 
 it('feches the order', async () => {
 
@@ -11,7 +11,7 @@ it('feches the order', async () => {
     price: 72
   })
 
-  const user = signinTest()
+  const user = signingTest()
 
   const { body: order } = await request(app)
     .post('/api/orders')
@@ -37,8 +37,8 @@ it('returns an error if one user tries to fetch another users order', async () =
     price: 72
   })
 
-  const user = signinTest()
-  const userTwo = signinTest()
+  const user = signingTest()
+  const userTwo = signingTest()
 
   const { body: order } = await request(app)
     .post('/api/orders')
