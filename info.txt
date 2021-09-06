@@ -1,6 +1,13 @@
 video 98
-
+# para docker desktop 
 # kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v0.41.0/deploy/static/provider/cloud/deploy.yaml
+
+# para minikube
+# Create the Ingress resource by running the following command:
+# kubectl apply -f https://k8s.io/examples/service/networking/example-ingress.yaml
+# si se esta utilizando minikube localmente se debe obtener la ip:
+#  minikube ip
+# esa ip se debe poner en el archivo host -> 192.168.49.2 kicketing.dev
 
 -- cuando salga el error de nginx al inciar con skaffold dev ejecutar el siguiente comando
 # kubectl delete -A ValidatingWebhookConfiguration ingress-nginx-admission
@@ -61,3 +68,9 @@ localhost:8222/streaming
 localhost:8222/streaming/channelsz?subs=1
 
 IMPORTANT !! VIDEO 275 (CORE CONCURRENCY ISSUES)
+
+## commands 
+kubectl get ingress
+minikube ip 
+kubectl get pods -n ingress-nginx 
+kubectl port-forward client-depl-b68cd8678-qdjj8 3000:3000
