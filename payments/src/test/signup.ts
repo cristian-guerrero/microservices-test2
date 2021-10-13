@@ -5,11 +5,11 @@ import jwt from 'jsonwebtoken'
 import mongoose from 'mongoose';
 
 
-const signinTest =  () => {
+const signingTest =  (id?: string) => {
 
 
   const payload = {
-    id: new mongoose.Types.ObjectId().toHexString(),
+    id: id || new mongoose.Types.ObjectId().toHexString(),
     email: 'test@test.com'
   }
 
@@ -18,7 +18,7 @@ const signinTest =  () => {
   const session = {jwt: token}
 
   const sessionJSON = JSON.stringify(session)
-  
+
   const base64 = Buffer.from(sessionJSON).toString('base64')
 
   return [`express:sess=${base64}`]
@@ -26,4 +26,4 @@ const signinTest =  () => {
 }
 
 
-export { signinTest }
+export { signingTest }

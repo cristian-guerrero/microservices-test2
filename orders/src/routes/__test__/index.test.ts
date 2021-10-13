@@ -1,5 +1,5 @@
 import request from 'supertest'
-import { signinTest } from '../../../../tickets/src/test/signup'
+import { signingTest } from '../../test/signup'
 import { Ticket } from '../../models/ticket'
 import app from '../../app'
 
@@ -20,8 +20,8 @@ it('fetches orders for an particular user ', async () => {
   const ticketTwo = await buildTicket()
   const ticketThree = await buildTicket()
 
-  const userOne = signinTest()
-  const userTwo = signinTest()
+  const userOne = signingTest()
+  const userTwo = signingTest()
 
   const { body: orderOne } = await request(app)
     .post('/api/orders')
